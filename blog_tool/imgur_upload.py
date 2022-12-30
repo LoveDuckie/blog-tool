@@ -2,7 +2,7 @@ import sys
 import rich_click as click
 import requests
 
-from blog_tool.utility.utility_click import write_error, write_info
+from blog_tool.utility.click.utility_click import write_error, write_info
 from blog_tool.utility.utility_config import get_config_property
 
 

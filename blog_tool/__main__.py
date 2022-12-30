@@ -5,8 +5,8 @@ from blog_tool.models.blog_collection import BlogCollection
 from blog_tool.logging.blog_tool_logger import get_logger
 import traceback
 import rich_click as click
-from blog_tool.utility.utility_blogs import create_blog, create_collection, get_blogs, get_collections, is_valid_blog, is_valid_collection
-from blog_tool.utility.utility_click import write_debug, write_error, write_info, write_success
+from blog_tool.utility.blogs.utility_blogs import create_blog, create_collection, get_blogs, get_collections, is_valid_blog, is_valid_collection
+from blog_tool.utility.click.utility_click import write_debug, write_error, write_info, write_success
 from blog_tool.utility.utility_exporters import get_exporter_modules_names
 from blog_tool.utility.utility_names import create_id_from_name
 from blog_tool.utility.utility_paths import get_default_collection_name, get_default_collections_path
@@ -30,9 +30,6 @@ def cli(ctx):
 def cli_tests(ctx):
     if ctx is None:
         raise ValueError("The context object is invalid or null")
-
-
-
 
 
 @cli_blogs.command("open", help="Open an existing blog from the collection specified.")
@@ -121,9 +118,6 @@ def cli_collections_validate(ctx, collection_id: str, validate_all: bool):
             write_error(msg)
 
 
-
-
-
 @cli_collections.command("delete", help="Delete the collections specified.")
 @click.option("--collection-id", "-c", "collection_ids", type=str, prompt="Collection ID", multiple=True, required=True,
               help="The slug ID(s) of he collection(s) to delete.")
@@ -177,40 +171,6 @@ def cli_collections_create(ctx, name: str, description: str):
     write_success("Done")
 
 
-@cli_config.command("blog_tool")
-@click.option("--set", '-s', "parameters", type=str, required=True, prompt_required=True,
-              help="The parameters to set, as key/value pairs.")
-@click.pass_context
-def cli_config_blog_tool(parameters: List[str]):
-    for parameter in parameters:
-        write_info(parameter)
-    write_success("Done")
-
-
-@cli_config.command("exporter")
-@click.option("--type", "-t", type=str, help="The absolute type path for the exporter.")
-@click.option("--parameter", '-p', "parameters", type=str, required=True, prompt_required=True,
-              help="The parameters to set, as key/value pairs.")
-@click.pass_context
-def cli_config_exporter(parameters: List[str]):
-    for parameter in parameters:
-        write_info(parameter)
-    write_success("Done")
-
-
-@cli_config.command("uploader")
-@click.option("--type", "-t", type=str, help="The type name")
-@click.option("--parameter", '-p', "parameters", type=str, required=True, prompt_required=True, prompt="Parameter",
-              default=[],
-              help="The parameters to set, as key/value pairs.")
-@click.pass_context
-def cli_config_exporter(parameters: List[str]):
-    if parameters is None:
-        raise ValueError("The parameters are invalid or null.")
-    if not any(parameters):
-        raise ValueError("No parameters were found.")
-
-
 @cli.group("upload", help="Upload a collection of blogs or a single blog.")
 @click.pass_context
 def cli_upload(ctx):
@@ -218,26 +178,6 @@ def cli_upload(ctx):
     return
 
 
-@cli_upload.command("blog", help="Upload a blog.")
-@click.option("--blog-id", "-b", "blog_id", type=str, default=None, required=True, prompt=True, prompt_required=True)
-@click.option("--collection-id", "-c", "collection_id", type=str, default="default", required=True, prompt=True, prompt_required=True)
-@click.option("--collections-path", "-c", "collection_path", type=str, default=get_default_collections_path(), required=False)
-@click.pass_context
-def cli_upload_blog(ctx, blog_id: str, collection_id: str, collections_path: str):
-    if not blog_id:
-        raise ValueError("The blog ID is invalid or null")
-    if not collection_id:
-        raise ValueError("The collect ID is invalid or null")
-    if not collections_path:
-        raise ValueError("The collections path is invalid or null")
-
-    if not is_valid_collection(collection_id, collections_path):
-        write_error(f"The collection \"{collection_id}\" is not valid.")
-        return 1
-    if not is_valid_blog(blog_id, collection_id, collections_path):
-        write_error(f"The blog \"{blog_id}\" is not valid.")
-        return 2
-    return 1
 
 
 @cli_upload.command("collection", help="Upload a collection.")

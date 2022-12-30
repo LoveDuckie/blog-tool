@@ -5,8 +5,8 @@ from blog_tool.models.blog_collection import BlogCollection
 from blog_tool.logging.blog_tool_logger import get_logger
 import traceback
 import rich_click as click
-from blog_tool.utility.utility_blogs import create_blog, create_collection, get_blogs, get_collections, is_valid_blog, is_valid_collection
-from blog_tool.utility.utility_click import write_debug, write_error, write_info, write_success
+from blog_tool.utility.blogs.utility_blogs import create_blog, create_collection, get_blogs, get_collections, is_valid_blog, is_valid_collection
+from blog_tool.utility.click.utility_click import write_debug, write_error, write_info, write_success
 from blog_tool.utility.utility_exporters import get_exporter_modules_names
 from blog_tool.utility.utility_names import create_id_from_name
 from blog_tool.utility.utility_paths import get_default_collection_name, get_default_collections_path

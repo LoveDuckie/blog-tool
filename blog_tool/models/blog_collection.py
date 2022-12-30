@@ -5,7 +5,7 @@ from typing import Any, List, Optional
 from pydantic import BaseModel
 
 from blog_tool.models.blog import Blog
-from blog_tool.utility.utility_click import write_error, write_info
+from blog_tool.utility.click.utility_click import write_error, write_info
 
 
 class BlogCollectionMetadata(BaseModel):

@@ -8,7 +8,12 @@ from blog_tool.exporters.exporter_interface import ExporterInterface
 
 
 def get_exporter_modules_names() -> List[str]:
-    return list(map(lambda x: x.name, filter(lambda x: not x.name.endswith("interface") and not x.ispkg, pkgutil.iter_modules([os.path.dirname(exporters.__file__)]))))
+    return list(
+        map(
+            lambda x: x.name,
+            filter(
+                lambda x: not x.name.endswith("interface") and not x.ispkg, pkgutil.iter_modules(
+                    [os.path.dirname(exporters.__file__)]))))
 
 
 def is_valid_exporter(exporter_id: str) -> bool:

@@ -3,7 +3,7 @@ from gql import Client
 from gql.transport.aiohttp import AIOHTTPTransport
 import rich_click as click
 
-from blog_tool.utility.utility_click import write_success
+from blog_tool.utility.click.utility_click import write_success
 
 
 def _cli_command_get_blogs(ctx):

@@ -10,7 +10,7 @@ import argparse
 import json
 from typing import List
 
-from blog_tool.utility.utility_blogs import get_formatted_timestamp
+from blog_tool.utility.blogs.utility_blogs import get_formatted_timestamp
 from blog_tool.utility.utility_paths import get_collection_path
 
 
