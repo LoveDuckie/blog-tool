@@ -5,7 +5,7 @@ import os
 from typing import List
 
 from blog_tool.models.blog import Blog
-from blog_tool.utility.utility_constructor import _init_parameter
+from blog_tool.utility.types.utility_constructor import _init_parameter
 import rich_click as click
 
 

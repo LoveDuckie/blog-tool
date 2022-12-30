@@ -1,7 +1,7 @@
 import re
 
 
-def create_id_from_name(blog_name: str) -> str:
+def create_id_from_name(name: str) -> str:
     """Generate the slug name from the name of the blog
 
     Args:
@@ -14,10 +14,10 @@ def create_id_from_name(blog_name: str) -> str:
     Returns:
         str: The newly generated slug name
     """
-    if blog_name is None or not blog_name:
+    if name is None or not name:
         raise ValueError("The blog name defined is invalid or null")
 
-    formatted = re.sub('[^a-zA-Z\_\-0-9]+', '-', blog_name)
+    formatted = re.sub('[^a-zA-Z\_\-0-9]+', '-', name)
     if formatted is None or formatted == '':
         raise ValueError("The formatted slug name is invalid or null")
     return formatted.lower()

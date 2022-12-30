@@ -1,9 +1,9 @@
-from blog_tool.uploaders.uploader_interface import UploaderInterface
+from blog_tool.publishers.publisher_interface import PublisherInterface
 
 import rich_click as click
 
 
-class DevToUploader(UploaderInterface):
+class DevToPublisher(PublisherInterface):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 

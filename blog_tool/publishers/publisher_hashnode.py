@@ -1,4 +1,4 @@
-from blog_tool.uploaders.uploader_interface import UploaderInterface
+from blog_tool.publishers.publisher_interface import PublisherInterface
 from gql import Client
 from gql.transport.aiohttp import AIOHTTPTransport
 import rich_click as click
@@ -14,7 +14,7 @@ def get_hashnode_api_url(*paths) -> str:
     return f"https://api.hashnode.com/{'/'.join(paths)}"
 
 
-class HashNodeUploader(UploaderInterface):
+class HashNodePublisher(PublisherInterface):
     def __init__(self, *args, **kwargs) -> None:
         if 'hashnode_api_token' not in kwargs:
             raise KeyError("The Hashnode API token was not defined")

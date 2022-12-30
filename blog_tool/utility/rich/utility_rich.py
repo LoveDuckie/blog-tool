@@ -2,7 +2,6 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.style import Style
 from rich.progress import Progress, TextColumn, BarColumn, TaskProgressColumn
-from rich import print
 
 from blog_tool.logging.utils.utils_rich_console import get_package_console
 

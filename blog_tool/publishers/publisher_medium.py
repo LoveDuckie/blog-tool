@@ -1,12 +1,13 @@
-from blog_tool.uploaders.uploader_interface import UploaderInterface
+from blog_tool.publishers.publisher_interface import PublisherInterface
 import rich_click as click
+
 
 def get_medium_api_url(*urls) -> str:
     urls_combined: str = '/'.join(urls)
     return f"https://api.medium.com/v1/{urls_combined}"
 
 
-class MediumUploader(UploaderInterface):
+class MediumPublisher(PublisherInterface):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 

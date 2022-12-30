@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 
 import rich_click as click
 
-class UploaderInterface(ABC):
+
+class PublisherInterface(ABC):
     def __init__(self, *args, **kwargs) -> None:
         pass
 

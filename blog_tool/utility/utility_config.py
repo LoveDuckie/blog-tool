@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 from typing import Any, List
 
-from blog_tool.utility.utility_paths import get_default_config_filepath, get_default_user_config_filepath
+from blog_tool.utility.utility_paths import get_default_package_config_filepath, get_default_user_config_filepath
 
 config_env_map = None
 
@@ -17,7 +17,7 @@ def _get_config_env_map() -> dict[str, str]:
 
 def _get_config() -> ConfigParser:
     config_parser = ConfigParser()
-    config_parser.read(get_default_config_filepath())
+    config_parser.read(get_default_package_config_filepath())
     return config_parser
 
 
