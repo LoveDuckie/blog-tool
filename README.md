@@ -15,13 +15,13 @@ Find below the number of platforms that are currently supported.
 - **WordPress**
   - **Website:** [https://wordpress.org](https://www.wordpress.org/)
 
-## Uploaders
+## Publishers
 
 An "Uploader" is a Python type responsible for uploading a blog to a target platform after it has been rendered or rasterized. It forms part of a pipeline for rendering and ultimately publishing the blog content to the platform specified.
 
 ## Exporters
 
-An "Exporter" is a Python type responsible for rendering or producing file in another format from Markdown source.
+An "Exporter" is a Python type responsible for "rendering" or "producing" file in another format from Markdown source, such as HTMl or PDF.
 
 - **PDF**
   - Render a PDF document form a Markdown source file. The rendered output is customizable with various parameters.
