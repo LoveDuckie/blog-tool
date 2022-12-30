@@ -1,9 +1,9 @@
 #!/bin/bash
 <<EOF
 
-   Portfolio Blog \ Python \ Setup
+   Blog Tool \ Python \ Setup
 
-   Setup the virtual environment
+   A simple shell script for setting up and configuring the local development environment for macOS and Linux (Debian).
 
 EOF
 CURRENT_SCRIPT_DIRECTORY=${CURRENT_SCRIPT_DIRECTORY:-$(dirname $(realpath $0))}

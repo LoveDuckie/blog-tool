@@ -1,4 +1,3 @@
-
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import is_valid_blog, is_valid_collection
 from blog_tool.utility.click.utility_click import write_error

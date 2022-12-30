@@ -1,52 +1,99 @@
 {
-    "Publisher-Write-Response" :
-    {
-        "prefix": "wr",
-        "description": "",
-        "body": [
-            "write_response \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
-        ]
-    },
-    "Publisher-Write-Info" :
-    {
-        "prefix": "wi",
-        "description": "",
-        "body": [
-            "write_info \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
-        ]
-    },
-    "Publisher-Write-Error" :
-    {
-        "prefix": "we",
-        "description": "",
-        "body": [
-            "write_error \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
-        ]
-    },
-    "Publisher-Write-Success" :
-    {
-        "prefix": "ws",
-        "description": "",
-        "body": [
-            "write_success \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
-        ]
-    },
-    "Publisher-Write-Warning" :
-    {
-        "prefix": "ww",
-        "description": "",
-        "body": [
-            "write_warning \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
-        ]
-    },
-    "Publisher-Null-Check" :
-    {
-        "prefix": "null",
-        "description": "A simple null check",
-        "body": [
-            "if [ -z \"$1\" ]; then",
-            "   $2",
-            "fi"
-        ]
-    }
+  "Script-Header-Shared": {
+    "prefix": "sharedscriptheader",
+    "scope": "shellscript",
+    "description": "The default declarations for all scripts that use shared functions.",
+    "body": [
+      "#!/bin/bash",
+      "<<EOF",
+      "",
+      "    Blog Tool \\ Shared \\ $1",
+      "",
+      "    $2",
+      "",
+      "EOF",
+      "[ -n \"${SHARED_${1/(.*)/${1:/upcase}/}_FUNCTIONS}\" ] && return"
+    ]
+  },
+  "Script-Header": {
+    "prefix": "scriptheader",
+    "scope": "shellscript",
+    "description": "The default declarations for all scripts that use shared functions.",
+    "body": [
+      "#!/bin/bash",
+      "<<EOF",
+      "",
+      "   Blog Tool \\ $1 \\ $2",
+      "",
+      "   $3",
+      "",
+      "EOF",
+      "CURRENT_SCRIPT_DIRECTORY_ENV=\\$(dirname \\$(realpath \\${BASH_SOURCE[0]:-${(%):-%x}}))",
+      "export SHARED_SCRIPTS_PATH_ENV=\\${SHARED_SCRIPTS_PATH_ENV:-\\$(realpath \\$CURRENT_SCRIPT_DIRECTORY_ENV/scripts)}",
+      "export CURRENT_SCRIPT_FILENAME=\\$(basename \\${BASH_SOURCE[0]:-${(%):-%x}})",
+      "export CURRENT_SCRIPT_FILENAME_BASE=\\${CURRENT_SCRIPT_FILENAME%.*}",
+      ". \"\\$SHARED_SCRIPTS_PATH_ENV/shared-functions.sh\"",
+      "write_header"
+    ]
+  },
+  "Script-Options": {
+    "prefix": "scriptoptions",
+    "scope": "shellscript",
+    "body": [
+      "while getopts ':$1h?' opt; do",
+      "   case \\$opt in",
+      "        $1)",
+      "            ",
+      "            ;;",
+      "        h|?)",
+      "            usage",
+      "            ;;",
+      "        :)",
+      "            write_error \"${TM_FILENAME_BASE}\" \"-\\${OPTARG} requires an argument\"",
+      "            usage",
+      "            ;;",
+      "        *)",
+      "            write_error \"${TM_FILENAME_BASE}\" \"-\\${OPTARG} was not recognised as an option\"",
+      "            usage",
+      "            ;;",
+      "   esac",
+      "done"
+    ]
+  },
+  "Blog-Tool-Write-Response": {
+    "prefix": "wr",
+    "description": "",
+    "body": [
+      "write_response \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
+    ]
+  },
+  "Blog-Tool-Write-Info": {
+    "prefix": "wi",
+    "description": "",
+    "body": ["write_info \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""]
+  },
+  "Blog-Tool-Write-Error": {
+    "prefix": "we",
+    "description": "",
+    "body": ["write_error \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""]
+  },
+  "Blog-Tool-Write-Success": {
+    "prefix": "ws",
+    "description": "",
+    "body": [
+      "write_success \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
+    ]
+  },
+  "Blog-Tool-Write-Warning": {
+    "prefix": "ww",
+    "description": "",
+    "body": [
+      "write_warning \"${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\" \"$1\""
+    ]
+  },
+  "Blog-Tool-Null-Check": {
+    "prefix": "null",
+    "description": "A simple null check",
+    "body": ["if [ -z \"$1\" ]; then", "   $2", "fi"]
+  }
 }

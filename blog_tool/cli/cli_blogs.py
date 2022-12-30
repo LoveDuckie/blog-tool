@@ -11,19 +11,13 @@ from blog_tool.utility.paths.utility_paths_blog import get_default_collection_na
 @click.group("blogs", help="Manage blogs.")
 @click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_name(),
               help="The ID of the blog collection.")
-@click.option("--collection-path", "-p", "collections_path", type=str, required=False,
-              default=get_default_collections_path(),
-              help="The path to where the collections are stored.")
 @click.pass_context
 def cli_blogs(ctx, collection_id: str):
     ctx.ensure_object(dict)
     if collection_id is None:
         raise ValueError("The collection ID is invalid or null")
-    if collections_path is None:
-        raise ValueError("The collections path is invalid or null")
 
     ctx.obj['collection_id'] = collection_id
-    ctx.obj['collections_path'] = collections_path
 
 
 @cli_blogs.command("create", help="Create a new blog in a collection.")

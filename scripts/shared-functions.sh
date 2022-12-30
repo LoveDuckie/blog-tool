@@ -1,9 +1,9 @@
 #!/bin/bash
 <<EOF
 
-   Portfolio Blog \ Shared \ Functions
+   Blog Tool \ Shared \ Functions
 
-   
+   A collection of shared and reusable functions for performing operations
 
 EOF
 CURRENT_SCRIPT_DIRECTORY=${CURRENT_SCRIPT_DIRECTORY:-$(dirname $(realpath $0))}
