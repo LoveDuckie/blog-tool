@@ -2,8 +2,7 @@
 
 from blog_tool.models.blog import Blog
 from blog_tool.exporters.exporter_interface import ExporterInterface
-import markdown
-from blog_tool.utility.utility_constructor import _init_parameter
+from blog_tool.utility.types.utility_constructor import _init_parameter
 import rich_click as click
 
 from blog_tool.logging.blog_tool_logger import get_logger

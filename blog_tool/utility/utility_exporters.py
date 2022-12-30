@@ -50,7 +50,7 @@ def create_exporter(exporter_type: str, **kwargs) -> ExporterInterface:
     exporter_type_class = exporter_type_expanded[-1]
 
     if exporter_type_expanded is None:
-        raise ValueError("Failed to expand the exporter type definition")
+        raise ValueError("Failed: unable to expand the exporter type definition")
 
     exporter_type_module: str = '.'.join(exporter_type.split('.')[-1])
 
@@ -61,7 +61,7 @@ def create_exporter(exporter_type: str, **kwargs) -> ExporterInterface:
 
     exporter_type = getattr(exporter_module_instance, exporter_type_class)
     if not exporter_type:
-        raise ValueError("Failed to retrieve the interface type")
+        raise ValueError("Failed: unable to retrieve the interface type")
 
     exporter_type_instance = exporter_type(**kwargs)
     if exporter_type_instance is None:
