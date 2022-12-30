@@ -1,7 +1,7 @@
 
 
-from blog_tool.blogs.blog import Blog
-from blog_tool.decorators.exporters.decorators_exporter import exporter
+from blog_tool.models.blog import Blog
+from blog_tool.exporters.decorators.decorator_exporter import exporter
 from blog_tool.exporters.exporter_interface import ExporterInterface
 
 

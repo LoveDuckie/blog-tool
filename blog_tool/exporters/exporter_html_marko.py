@@ -1,6 +1,6 @@
 
 
-from blog_tool.blogs.blog import Blog
+from blog_tool.models.blog import Blog
 from blog_tool.exporters.exporter_interface import ExporterInterface
 import markdown
 from blog_tool.utility.utility_constructor import _init_parameter

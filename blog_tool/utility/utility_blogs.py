@@ -1,7 +1,7 @@
 import os
 from typing import List
-from blog_tool.blogs.blog import Blog, BlogMetadata
-from blog_tool.blogs.blog_collection import BlogCollection, BlogCollectionMetadata
+from blog_tool.models.blog import Blog, BlogMetadata
+from blog_tool.models.blog_collection import BlogCollection, BlogCollectionMetadata
 from blog_tool.utility.utility_names import create_id_from_name
 
 from blog_tool.utility.utility_paths import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_name, get_default_collections_path
@@ -244,7 +244,7 @@ def get_collection(collection_id: str, collections_path: str = get_default_colle
 
     collection_metadata_filepath = get_collection_metadata_filepath(
         collection_id, collections_path)
-    
+
     if not os.path.exists(collection_metadata_filepath):
         raise IOError(f"Failed: unable to find metadata filepath \"{collection_metadata_filepath}\"")
     collection_metadata = BlogCollectionMetadata.load(
@@ -267,7 +267,7 @@ def get_blogs(collection_id: str = get_default_collection_name(), collections_pa
     if not os.path.exists(metadata_filepath):
         raise IOError(
             f"Failed: unable to find the file \"{metadata_filepath}\"")
-    
+
     for blog_id in os.listdir(collection_path):
         blog_metadata_filepath = get_blog_metadata_filepath(
             blog_id, collection_id, collections_path)

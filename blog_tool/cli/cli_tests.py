@@ -13,19 +13,29 @@ from blog_tool.utility.utility_paths import get_default_collection_name, get_def
 from blog_tool.utility.utility_tests import get_tests_path
 
 
-@click.group("images", help="Modify the behaviour of the blog_tool tool.")
+@click.group("tests", help="Modify the behaviour of the blog_tool tool.")
 @click.pass_context
-def cli_images(ctx):
+def cli_tests(ctx):
     if ctx is None:
         raise ValueError("The context object is invalid or null")
 
 
-@cli_images.command("upload", help="Show the current configuration values.")
-@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_name(),
-              help="The name of the collection to reveal configuration information about")
+@cli_tests.command("run", help="Run all available tests.")
 @click.pass_context
-def cli_images_show(ctx, collection_id: str):
-    write_info(f"Collections Path: {get_default_collections_path()}")
-    if collection_id is not None and not is_valid_collection(collection_id):
-        write_error(f"The collection \"{collection_id}\" is not valid.")
-    write_success("Done")
+def cli_tests_run(ctx):
+    pass
+
+
+@cli_tests.command("list", help="List all available tests that can be used")
+@click.option("--path", "-p", "path", type=str, default=get_tests_path(),
+              help="The absolute path to where unit tests are defined.")
+@click.pass_context
+def cli_tests_list(ctx, path: str):
+    if not path:
+        raise ValueError("The tests path is invalid or null")
+
+    if not os.path.isabs(path):
+        raise IOError(f"Failed: the path \"{path}\" is invalid.")
+
+    if not os.path.exists(path):
+        raise IOError(f"Failed: unable to find the tests \"{path}\".")

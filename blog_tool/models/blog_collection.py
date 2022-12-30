@@ -4,7 +4,7 @@ import os
 from typing import Any, List, Optional
 from pydantic import BaseModel
 
-from blog_tool.blogs.blog import Blog
+from blog_tool.models.blog import Blog
 from blog_tool.utility.utility_click import write_error, write_info
 
 
@@ -50,7 +50,7 @@ class BlogCollectionMetadata(BaseModel):
 
         with open(metadata_filepath, 'r') as f:
             metadata_raw = f.read()
-            
+
         if not metadata_raw or metadata_raw == "":
             errmsg = f"The metadata file \"{metadata_filepath}\" is empty."
             write_error(errmsg)

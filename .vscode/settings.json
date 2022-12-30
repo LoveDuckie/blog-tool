@@ -1,6 +1,40 @@
 {
+    "files.associations": {
+        "*.env*": "ini",
+        "*.toml*": "ini"
+    },
     "files.exclude": {
-        "**/.git": false,
-        "**/.gitignore": false
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/__pycache__": true
+    },
+    "search.exclude": {
+        "**/__pycache__": true
+    },
+    "python.formatting.autopep8Args": [
+        "--max-line-length",
+        "120",
+        "--experimental"
+    ],
+    "python.linting.enabled": true,
+    "python.formatting.provider": "autopep8",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.python",
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "python.testing.unittestEnabled": true,
+    "yaml.schemas": {
+        "jcasc-schema.json": "y[a]?ml"
+    },
+    "[ini]": {
+        "editor.defaultFormatter": "lkrms.inifmt"
     }
+
 }

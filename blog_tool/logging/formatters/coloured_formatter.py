@@ -15,7 +15,7 @@ reset = '\x1b[0m'
 DEFAULT_COLOR_WHITE = '\x1b[97m'
 
 
-class CustomFormatter(logging.Formatter):
+class ColouredFormatter(logging.Formatter):
     def __init__(self, fmt=None):
         super().__init__()
         self.datefmt = "%d-%b-%y %H:%M:%S"

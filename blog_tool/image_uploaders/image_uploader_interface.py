@@ -8,15 +8,6 @@ class ImageUploaderInterface(ABC):
     def __init__(self, *args, **kwargs) -> None:
         pass
 
-    @property
-    @abstractmethod
-    def requires_authentication(self) -> bool:
-        pass
-
-    @abstractmethod
-    def authenticate(self):
-        pass
-
     @abstractmethod
     def upload(self, target_filepath: str):
         if not target_filepath:

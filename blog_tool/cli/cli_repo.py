@@ -13,19 +13,16 @@ from blog_tool.utility.utility_paths import get_default_collection_name, get_def
 from blog_tool.utility.utility_tests import get_tests_path
 
 
-@click.group("images", help="Modify the behaviour of the blog_tool tool.")
+@click.group("repo", help="Modify the behaviour of the blog_tool tool.")
 @click.pass_context
-def cli_images(ctx):
+def cli_repo(ctx):
     if ctx is None:
         raise ValueError("The context object is invalid or null")
 
 
-@cli_images.command("upload", help="Show the current configuration values.")
-@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_name(),
-              help="The name of the collection to reveal configuration information about")
+@cli_repo.command("init", help="Initialise the repository at the path specified.")
+@click.option("--path", "-p", "path", type=str, default="",
+              help="The absolute path to where the repository is located.")
 @click.pass_context
-def cli_images_show(ctx, collection_id: str):
-    write_info(f"Collections Path: {get_default_collections_path()}")
-    if collection_id is not None and not is_valid_collection(collection_id):
-        write_error(f"The collection \"{collection_id}\" is not valid.")
-    write_success("Done")
+def cli_repo_init(ctx, path: str):
+    pass
