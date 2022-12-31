@@ -1,15 +1,16 @@
 from typing import List
+import os
 import traceback
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import create_blog, get_blogs, is_valid_blog
 from blog_tool.utility.click.utility_click import write_debug, write_error, write_info
 from blog_tool.utility.utility_exporters import get_exporter_modules_names
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_name, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_default_collections_path
 
 
 @click.group("blogs", help="Manage blogs.")
-@click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_name(),
+@click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_id(),
               help="The ID of the blog collection.")
 @click.pass_context
 def cli_blogs(ctx, collection_id: str):
@@ -35,6 +36,9 @@ def cli_blogs_create(ctx, blog_id: str, blog_name: str, blog_description: str, b
             "The name of the blog is invalid or null. Unable to continue.")
 
     collection_id: str = ctx.obj['collection_id']
+    if not collection_id:
+        raise ValueError("The collection ID is invalid or null")
+
     blog_id: str = create_id_from_name(blog_id)
     write_info(f"Creating: \"{blog_id}\"")
     try:
@@ -53,7 +57,7 @@ def cli_blogs_delete(ctx, blog_id: str):
     if blog_id is None:
         raise ValueError("The blog ID is invalid or null")
     collection_id = ctx.obj['collection_id']
-    collections_path = ctx.obj['collections_path']
+    path = ctx.obj['path']
 
     if not is_valid_blog(blog_id, collection_id, collections_path):
         write_error(f"The blog \"{blog_id}\" is not valid.")
@@ -67,7 +71,6 @@ def cli_blogs_validate(ctx, blog_id: str):
     if blog_id is None:
         raise ValueError("The blog ID is invalid or null")
     collection_id = ctx.obj['collection_id']
-    collections_path = ctx.obj['collections_path']
 
     if not is_valid_blog(blog_id, collection_id, collections_path):
         write_error(f"The blog \"{blog_id}\" is not valid.")
@@ -87,10 +90,14 @@ def cli_blogs_create(ctx, blog_id: str):
 def cli_blogs_list(ctx):
     ctx.ensure_object(dict)
     collection_id = ctx.obj['collection_id']
-    collections_path = ctx.obj['collections_path']
+    path = ctx.obj['path']
+    if not collection_id:
+        raise ValueError("The collection ID is invalid or null")
+    collections_path = get_default_collections_path(path)
+    collection_path = get_default_collection_path()
 
     write_info(f"Listing Blogs: \"{collection_id}\"")
-    write_debug(f"Collections Path: \"{collections_path}\"")
+    write_debug(f"Collection Path: \"{collections_path}\"")
 
     blogs = get_blogs(collection_id, collections_path)
 
@@ -107,7 +114,6 @@ def cli_blogs_list(ctx):
 @click.pass_context
 def cli_blogs_list(ctx):
     collection_id = ctx.obj['collection_id']
-    collections_path = ctx.obj['collections_path']
 
     write_info(f"Listing Blogs: \"{collection_id}\"")
     write_debug(f"Collections Path: \"{collections_path}\"")
@@ -129,7 +135,7 @@ def cli_blogs_list(ctx):
               multiple=True, required=True, help="The type qualification for the exporter to use.")
 @click.option("--collections-path", "-p", "collections_path", default=get_default_collections_path(),
               required=False, help="The absolute path to where the collections are stored.")
-@click.option("--collection-id", "-c", "collection_id", default=get_default_collection_name(),
+@click.option("--collection-id", "-c", "collection_id", default=get_default_collection_id(),
               required=False, help="The ID or name of the collection to export the blog from.")
 @click.option("--blog-id", "-b", "blog_id", required=True, help="Overwrite any exported blogs if they exist already.")
 @click.option("--force", "-f", "force", is_flag=True, help="Overwrite any exported blogs if they exist already.")
@@ -138,7 +144,6 @@ def cli_blogs_list(ctx):
 def cli_export(ctx, exporter: str, force: bool, output_path: str):
     ctx.ensure_object(dict)
     collection_id = ctx.obj['collection_id']
-    collections_path = ctx.obj['collections_path']
     blog_id = ctx.obj['blog_id']
     if collection_id is None:
         raise ValueError("The collection ID is invalid or null")
@@ -146,5 +151,7 @@ def cli_export(ctx, exporter: str, force: bool, output_path: str):
         raise ValueError("The blog ID is invalid or null")
     if output_path is None:
         raise ValueError("The path is invalid or null")
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
     if exporter is None:
         raise ValueError("The exporter type to use is invalid or null")

@@ -18,12 +18,13 @@ logger = get_logger()
 
 
 @click.group(help="The command-line interface for the tool.")
-@click.option("--path", "-p", "path", envvar="BLOG_TOOL_PATH",
+@click.option("--storage-path", "-p", "storage_path", envvar="BLOG_TOOL_STORAGE_PATH",
               help="The path to where the blogs and collections are stored.", required=False, default=os.getcwd(),
               show_default=True)
 @click.pass_context
-def cli(ctx):
+def cli(ctx, storage_path: str):
     ctx.ensure_object(dict)
+    ctx.obj['storage_path'] = storage_path
 
 
 cli.add_command(cli_config)

@@ -23,15 +23,11 @@ def cli_repo_validate(ctx):
     ctx.ensure_object(dict)
 
 
-# List
-
-
 @cli_repo.group("list", help="Initialise the repository at the path specified.")
 @click.pass_context
 def cli_repo_list(ctx):
     ctx.ensure_object(dict)
-
-# List Blogs
+    path = ctx.obj['path']
 
 
 @cli_repo_list.command("blogs", help="List all blogs in a collection.")

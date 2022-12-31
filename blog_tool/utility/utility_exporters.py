@@ -8,6 +8,11 @@ from blog_tool.exporters.exporter_interface import ExporterInterface
 
 
 def get_exporter_modules_names() -> List[str]:
+    """Get a list of module names for exporters that are supported
+
+    Returns:
+        List[str]: The list of exporter module names
+    """
     return list(
         map(
             lambda x: x.name,

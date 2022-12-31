@@ -4,13 +4,13 @@ from blog_tool.models.blog import Blog, BlogMetadata
 from blog_tool.models.blog_collection import BlogCollection, BlogCollectionMetadata
 from blog_tool.utility.utility_names import create_id_from_name
 
-from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_name, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_id, get_default_collections_path
 
 _collection_dirs = ['.metadata', 'assets', 'blogs']
 _blog_dirs = ['.metadata', 'assets']
 
 
-def is_valid_collection(collection_id: str = get_default_collection_name(),
+def is_valid_collection(collection_id: str = get_default_collection_id(),
                         collections_path: str = get_default_collections_path()) -> bool:
     if collection_id is None or not collection_id:
         raise ValueError("The blog collection ID is invalid or null")
@@ -29,7 +29,7 @@ def is_valid_collection(collection_id: str = get_default_collection_name(),
     return True
 
 
-def is_valid_blog(blog_id: str, collection_id: str = get_default_collection_name(),
+def is_valid_blog(blog_id: str, collection_id: str = get_default_collection_id(),
                   collections_path: str = get_default_collections_path()) -> bool:
     # sourcery skip: raise-specific-error
     if blog_id is None:
@@ -123,7 +123,7 @@ def create_blog_metadata_file(
 
 
 def create_blog(
-        blog_id: str, collection_id: str = get_default_collection_name(),
+        blog_id: str, collection_id: str = get_default_collection_id(),
         collections_path: str = get_default_collections_path(),
         **kwargs):
     global _blog_dirs
@@ -143,7 +143,7 @@ def create_blog(
 
 
 def create_collection(
-        collection_name: str = get_default_collection_name(),
+        collection_name: str = get_default_collection_id(),
         collections_path: str = get_default_collections_path(),
         **kwargs):
     """Create the blog collection
@@ -267,7 +267,7 @@ def get_collection(collection_id: str, collections_path: str = get_default_colle
     return BlogCollection(collection_metadata)
 
 
-def get_blogs(collection_id: str = get_default_collection_name(),
+def get_blogs(collection_id: str = get_default_collection_id(),
               collections_path: str = get_default_collections_path()) -> List:
     blogs = []
 

@@ -5,11 +5,11 @@ import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import create_collection, get_collections, is_valid_collection
 from blog_tool.utility.click.utility_click import write_error, write_info, write_success
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_name, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
 
 
 @click.group("collections", help="Manage collections of blogs.")
-@click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_name(),
+@click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_id(),
               help="The ID of the blog collection.")
 @click.option("--collection-path", "-p", "collections_path", type=str, required=False,
               default=get_default_collections_path(),
@@ -36,7 +36,7 @@ def cli_collection_list(ctx, short: bool):
 
 
 @cli_collections.command("validate", help="Validate the collection and determine if there are any errors.")
-@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_name(),
+@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_id(),
               help="The ID for the collection")
 @click.option("--all", "-a", "validate_all", is_flag=True, help="If all collections should be validated.")
 def cli_collection_validate(ctx, collection_id: str, validate_all: bool):
