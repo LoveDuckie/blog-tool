@@ -6,7 +6,7 @@ from rich.logging import RichHandler
 from logging import Logger, StreamHandler
 from logging.handlers import RotatingFileHandler
 from blog_tool import __title__
-from blog_tool.logging.utils.utils_rich_console import get_package_console
+from blog_tool.utility.rich.utility_console import get_package_console
 from blog_tool.utility.utility_datetime import get_formatted_timestamp
 
 _logger_instance = None

@@ -1,7 +1,7 @@
 import os
 import subprocess
 from blog_tool.utility.paths.utility_paths_config import get_default_config_filename, get_default_user_config_filename
-from blog_tool import __title__
+from blog_tool import __title__, __project__
 import pathlib
 
 _repo_root = None
@@ -13,7 +13,7 @@ def get_package_root():
     Returns:
         str: The absolute path to the root of of the project
     """
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 
 def get_package_path(*paths) -> str:
@@ -31,7 +31,7 @@ def get_default_package_config_filepath() -> str:
     Returns:
         str: The absolute path to the default configuration file
     """
-    return os.path.join(get_package_root(), "blog_tool", "data", "config", get_default_config_filename())
+    return os.path.join(get_package_root(), __project__, "data", "config", get_default_config_filename())
 
 
 def get_default_user_path() -> str:

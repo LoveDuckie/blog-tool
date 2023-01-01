@@ -7,7 +7,7 @@ from blog_tool.utility.click.utility_click import click_write_success
 
 
 def _cli_command_get_blogs(ctx):
-    click_write_success("Done")
+    pass
 
 
 def get_hashnode_api_url(*paths) -> str:

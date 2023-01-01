@@ -14,12 +14,33 @@ def get_headers_path() -> str:
 
 
 def get_header_filepath(header_filename: str) -> str:
+    """Generate the absolute path for the header file
+
+    Args:
+        header_filename (str): The filename for the header
+
+    Raises:
+        ValueError: If the file name is valid
+
+    Returns:
+        str: The absolute filepath for the header
+    """
     if not header_filename:
         raise ValueError("The header file name is invalid or null")
     return os.path.join(get_headers_path(), header_filename)
 
 
 def echo_header(header_filename: str):
+    """Emit the header using the filename specified
+
+    Args:
+        header_filename (str): The filename of the header to emit
+
+    Raises:
+        ValueError: If the header file name has been defined
+        ValueError: If the header file path is valid
+        IOError: If the header file exists
+    """
     if not header_filename:
         raise ValueError("The filename is invalid or null")
     package_console = get_package_console()
@@ -30,8 +51,7 @@ def echo_header(header_filename: str):
     if not os.path.exists(header_filepath):
         raise IOError(f"Failed: unable to find the file \"{header_filepath}\"")
 
-    lines = None
+    content = None
     with open(header_filepath, "r") as file:
-        lines = file.readlines
-    for line in lines:
-        package_console.print(f"[white]{line}[/white]")
+        content = file.read()
+    package_console.print(f"[white]{content}[/white]")

@@ -165,7 +165,9 @@ def get_blog_metadata_filepath(
     if not collection_id:
         raise ValueError("The ID of the collection is invalid or null")
 
-    return os.path.join(get_blog_metadata_path(blog_id, collection_id, collections_path), "blog.json")
+    return os.path.join(
+        get_blog_metadata_path(blog_id, collection_id, collections_path),
+        get_default_blog_metadata_filename())
 
 
 def get_default_export_path(*paths) -> str:
@@ -178,8 +180,7 @@ def get_default_export_path(*paths) -> str:
     return os.path.abspath(os.path.join(get_repo_root(), "exported", path_combined))
 
 
-def get_blog_export_path(blog_id: str, collection_id: str = get_default_collection_id(),
-                         collections_path: str = get_default_collections_path()) -> str:
+def get_blog_export_path(blog_id: str, collection_id: str = get_default_collection_id()) -> str:
     if blog_id is None:
         raise ValueError("The blog is not considered valid.")
     if collection_id is None:
