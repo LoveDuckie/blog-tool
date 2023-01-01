@@ -1,6 +1,6 @@
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import is_valid_blog, is_valid_collection
-from blog_tool.utility.click.utility_click import write_error
+from blog_tool.utility.click.utility_click import click_write_error
 from blog_tool.utility.paths.utility_paths_blog import get_default_collections_path
 
 
@@ -30,10 +30,10 @@ def cli_publish_blog(ctx, blog_id: str, collection_id: str):
         raise ValueError("The collections path is invalid or null")
 
     if not is_valid_collection(collection_id, collections_path):
-        write_error(f"The collection \"{collection_id}\" is not valid.")
+        click_write_error(f"The collection \"{collection_id}\" is not valid.")
         ctx.exit(1)
     if not is_valid_blog(blog_id, collection_id, collections_path):
-        write_error(f"The blog \"{blog_id}\" is not valid.")
+        click_write_error(f"The blog \"{blog_id}\" is not valid.")
         ctx.exit(2)
     ctx.exit(0)
 

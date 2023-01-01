@@ -2,7 +2,7 @@ import sys
 import rich_click as click
 import requests
 
-from blog_tool.utility.click.utility_click import write_error, write_info
+from blog_tool.utility.click.utility_click import click_write_error, click_write_info
 from blog_tool.utility.utility_config import get_config_property
 
 
@@ -12,8 +12,12 @@ def get_imgur_api_endpoint(*urls) -> str:
 
 
 @click.group("imgur")
-@click.option("--client-id", "-i", "client_id", default=get_config_property("blog_tool.image-uploader.imgur", "client-id"), prompt="Client ID", type=str, required=True, help="The client ID")
-@click.option("--client-secret", "-s", "client_secret", default=get_config_property("blog_tool.image-uploader.imgur", "client-secret"), prompt="Client Secret", type=str, required=True, help="The client secret")
+@click.option("--client-id", "-i", "client_id",
+              default=get_config_property("blog_tool.image-uploader.imgur", "client-id"),
+              prompt="Client ID", type=str, required=True, help="The client ID")
+@click.option("--client-secret", "-s", "client_secret",
+              default=get_config_property("blog_tool.image-uploader.imgur", "client-secret"),
+              prompt="Client Secret", type=str, required=True, help="The client secret")
 @click.pass_context
 def cli(ctx, client_id: str, client_secret: str):
     ctx.ensure_object(dict)
@@ -42,7 +46,7 @@ def cli_authorize(ctx, pin: str):
         "client_secret": client_secret
     })
 
-    write_info(result.json())
+    click_write_info(result.json())
 
 
 @cli.command("authenticate")
@@ -54,16 +58,16 @@ def cli_authenticate(ctx):
         "oauth2", "authorize", f"?response_type=pin&client_id={client_id}&client_secret={client_secret}")
 
     if not client_id:
-        write_error("The client ID was not specified")
+        click_write_error("The client ID was not specified")
         return 1
     if not client_secret:
-        write_error("The client secret was not specified")
+        click_write_error("The client secret was not specified")
         return 2
 
     click.launch(api_url)
     result = None
     while not (result := click.prompt("PIN")):
-        write_error("PIN is invalid")
+        click_write_error("PIN is invalid")
 
     # ctx.forward(cli_authorize)
     ctx.invoke(cli_authorize, pin=result)

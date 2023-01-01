@@ -3,7 +3,7 @@ from typing import List
 from blog_tool.models.blog_collection import BlogCollection
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import create_collection, get_collections, is_valid_collection
-from blog_tool.utility.click.utility_click import write_error, write_info, write_success
+from blog_tool.utility.click.utility_click import click_write_error, click_write_info, click_write_success
 from blog_tool.utility.utility_names import create_id_from_name
 from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
 
@@ -54,7 +54,7 @@ def cli_collection_validate(ctx, collection_id: str, validate_all: bool):
 
     if any(error_messages):
         for msg in error_messages:
-            write_error(msg)
+            click_write_error(msg)
 
 
 @cli_collections.command("delete", help="Delete the collections specified.")
@@ -95,14 +95,14 @@ def cli_collections_create(ctx, name: str, description: str):
     collection_id = create_id_from_name(name)
 
     if is_valid_collection(collection_id, collections_path):
-        write_error(
+        click_write_error(
             f"The collection \"{name}\" already exists in \"{collections_path}\".")
         return 1
 
-    write_info(f"Creating: \"{collection_id}\" in \"{collections_path}\"")
+    click_write_info(f"Creating: \"{collection_id}\" in \"{collections_path}\"")
     collection = create_collection(
         collection_id, collections_path, description=description, name=name)
     if not collection:
         raise ValueError(
             f"Failed: unable to create the collection \"{collection_id}\" in \"{collections_path}\"")
-    write_success("Done")
+    click_write_success("Done")

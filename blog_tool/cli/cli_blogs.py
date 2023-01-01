@@ -3,7 +3,7 @@ import os
 import traceback
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import create_blog, get_blogs, is_valid_blog
-from blog_tool.utility.click.utility_click import write_debug, write_error, write_info
+from blog_tool.utility.click.utility_click import click_write_debug, click_write_error, click_write_info
 from blog_tool.utility.utility_exporters import get_exporter_modules_names
 from blog_tool.utility.utility_names import create_id_from_name
 from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_default_collections_path
@@ -40,13 +40,13 @@ def cli_blogs_create(ctx, blog_id: str, blog_name: str, blog_description: str, b
         raise ValueError("The collection ID is invalid or null")
 
     blog_id: str = create_id_from_name(blog_id)
-    write_info(f"Creating: \"{blog_id}\"")
+    click_write_info(f"Creating: \"{blog_id}\"")
     try:
         create_blog(blog_id, collection_id, name=blog_name,
                     description=blog_description, tags=blog_tags)
     except Exception as exc:
         tb = traceback.format_exc()
-        write_error(tb)
+        click_write_error(tb)
 
 
 @cli_blogs.command("delete", help="Delete an existing blog from a collection.")
@@ -60,7 +60,7 @@ def cli_blogs_delete(ctx, blog_id: str):
     path = ctx.obj['path']
 
     if not is_valid_blog(blog_id, collection_id, collections_path):
-        write_error(f"The blog \"{blog_id}\" is not valid.")
+        click_write_error(f"The blog \"{blog_id}\" is not valid.")
 
 
 @cli_blogs.command("validate", help="Delete an existing blog from a collection.")
@@ -73,7 +73,7 @@ def cli_blogs_validate(ctx, blog_id: str):
     collection_id = ctx.obj['collection_id']
 
     if not is_valid_blog(blog_id, collection_id, collections_path):
-        write_error(f"The blog \"{blog_id}\" is not valid.")
+        click_write_error(f"The blog \"{blog_id}\" is not valid.")
 
 
 @cli_blogs.command("open", help="Open an existing blog from the collection specified.")
@@ -96,18 +96,18 @@ def cli_blogs_list(ctx):
     collections_path = get_default_collections_path(path)
     collection_path = get_default_collection_path()
 
-    write_info(f"Listing Blogs: \"{collection_id}\"")
-    write_debug(f"Collection Path: \"{collections_path}\"")
+    click_write_info(f"Listing Blogs: \"{collection_id}\"")
+    click_write_debug(f"Collection Path: \"{collections_path}\"")
 
     blogs = get_blogs(collection_id, collections_path)
 
     if not blogs:
         raise ValueError("The blogs found are invalid or null")
 
-    write_info(f"Blogs found in collection \"{collection_id}\"")
+    click_write_info(f"Blogs found in collection \"{collection_id}\"")
 
     for blog in blogs:
-        write_info(f"Blog: \"{blog.name}\"")
+        click_write_info(f"Blog: \"{blog.name}\"")
 
 
 @cli_blogs.command("info", help="Display information for a blog.")
@@ -115,18 +115,18 @@ def cli_blogs_list(ctx):
 def cli_blogs_list(ctx):
     collection_id = ctx.obj['collection_id']
 
-    write_info(f"Listing Blogs: \"{collection_id}\"")
-    write_debug(f"Collections Path: \"{collections_path}\"")
+    click_write_info(f"Listing Blogs: \"{collection_id}\"")
+    click_write_debug(f"Collections Path: \"{collections_path}\"")
 
     blogs = get_blogs(collection_id, collections_path)
 
     if not blogs:
         raise ValueError("The blogs found are invalid or null")
 
-    write_info(f"Blogs found in collection \"{collection_id}\"")
+    click_write_info(f"Blogs found in collection \"{collection_id}\"")
 
     for blog in blogs:
-        write_info(f"Blog: \"{blog.name}\"")
+        click_write_info(f"Blog: \"{blog.name}\"")
 
 
 @click.group("export", help="Render the blog out to a path specified.")

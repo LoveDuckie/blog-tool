@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from blog_tool.models.blog import Blog
 from blog_tool.models.metadata.metadata_blog_collection import BlogCollectionMetadata
-from blog_tool.utility.click.utility_click import write_error, write_info
+from blog_tool.utility.click.utility_click import click_write_error, click_write_info
 
 
 class BlogCollection:

@@ -2,8 +2,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.style import Style
 from rich.progress import Progress, TextColumn, BarColumn, TaskProgressColumn
-
-from blog_tool.logging.utils.utils_rich_console import get_package_console
+from blog_tool.utility.rich.utility_console import get_package_console
 
 
 def get_progress_bar() -> Progress:
@@ -48,6 +47,20 @@ def get_panel_error(title: str, message: str | list[str]) -> Panel:
 
 
 def get_panel_warning(title: str, message: str | list[str]) -> Panel:
+    """Instantiate the panel for emitting a warning
+
+    Args:
+        title (str): The title of the panel
+        message (str | list[str]): The message or list of messages to emit
+
+    Raises:
+        ValueError: If the message is invalid or null
+        TypeError: If the message is not the correct type
+        ValueError: If the title is not valid
+
+    Returns:
+        Panel: The newly instantiated panel
+    """
     if message is None:
         raise ValueError("The message specified is invalid or null")
     if not isinstance(message, str) and not isinstance(message, list):

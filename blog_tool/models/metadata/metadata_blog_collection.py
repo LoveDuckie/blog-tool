@@ -5,7 +5,7 @@ from typing import Any, List, Optional
 from pydantic import BaseModel
 
 from blog_tool.models.blog import Blog
-from blog_tool.utility.click.utility_click import write_error, write_info
+from blog_tool.utility.click.utility_click import click_write_error, click_write_info
 
 
 class BlogCollectionMetadata(BaseModel):
@@ -46,14 +46,14 @@ class BlogCollectionMetadata(BaseModel):
             raise IOError(
                 f"The absolute path to the metadata is invalid or null (\"{metadata_filepath}\")")
 
-        write_info(f"Loading: \"{metadata_filepath}\"")
+        click_write_info(f"Loading: \"{metadata_filepath}\"")
 
         with open(metadata_filepath, 'r') as f:
             metadata_raw = f.read()
 
         if not metadata_raw or metadata_raw == "":
             errmsg = f"The metadata file \"{metadata_filepath}\" is empty."
-            write_error(errmsg)
+            click_write_error(errmsg)
             raise IOError(errmsg)
 
         collection_metadata = BlogCollectionMetadata.parse_raw(metadata_raw)
