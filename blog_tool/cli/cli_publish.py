@@ -1,7 +1,7 @@
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import is_valid_blog, is_valid_collection
 from blog_tool.utility.click.utility_click import click_write_error
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_storage_path
 
 
 @click.group("publish", help="Modify the behaviour of the blog_tool tool.")
@@ -22,7 +22,7 @@ def cli_publish_blog(ctx, blog_id: str, collection_id: str):
     path = ctx.obj["path"] if "path" in ctx.obj else None
     if not path:
         raise ValueError("The root path to the blogs is invalid or null")
-    collections_path = get_default_collections_path()
+    collections_path = get_default_storage_path()
     if not blog_id:
         raise ValueError("The blog ID is invalid or null")
     if not collection_id:

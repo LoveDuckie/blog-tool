@@ -52,11 +52,11 @@ def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_
     try:
         init_user_config_file()
     except Exception as exc:
-        pass
+        logger.exception(exc)
     try:
         init_storage()
     except Exception as exc:
-        pass
+        logger.exception(exc)
 
     if not storage_path:
         raise ValueError("The storage path is invalid or null")

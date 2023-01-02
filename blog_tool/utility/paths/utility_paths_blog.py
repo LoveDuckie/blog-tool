@@ -1,5 +1,6 @@
 import os
-from blog_tool.utility.paths.utility_paths import get_repo_root
+from blog_tool.utility.paths.utility_paths import get_default_storage_path, get_repo_root_path
+from blog_tool.utility.paths.utility_paths_blog_collection import get_collection_path, get_default_storage_path
 from blog_tool.utility.utility_names import create_id_from_name
 
 
@@ -39,70 +40,26 @@ def get_default_metadata_path_name() -> str:
     return ".metadata"
 
 
-def get_default_blog_repo_root():
-    return get_repo_root()
+def get_default_storage_path() -> str:
+    """Get the absolute path to the root of the repository
+
+    Returns:
+        str: The absolute path to the root of the repository
+    """
+    return get_repo_root_path()
 
 
-def get_default_blogs_path(repo_root: str = get_default_blog_repo_root()) -> str:
+def get_default_blogs_path(storage_path: str = get_default_storage_path()) -> str:
     """Returns the default path to where the blogs are stored in the repository.
 
     Returns:
         str: The absolute path to where the blogs are stored in the repository.
     """
-    return os.path.abspath(os.path.join(repo_root, "blogs"))
-
-
-def get_default_collections_path(repo_root: str = get_default_blog_repo_root()) -> str:
-    """Get the default collections path
-
-    Returns:
-        str: Returns the absolute path to the blog collections.
-    """
-    return os.path.abspath(os.path.join(get_default_blogs_path(repo_root), "collections"))
-
-
-def get_default_collection_path(repo_root=get_default_blog_repo_root(), collection_id=None) -> str:
-    """Get the default absolute path to the collection
-
-    Returns:
-        str: Get the absolute path to the default collection.
-    """
-    return get_collection_path(
-        repo_root, collection_id or get_default_collection_id()
-    )
-
-
-def get_collection_path(repo_root: str, collection_id: str = get_default_collection_id()) -> str:
-    if not collection_id:
-        raise ValueError("The name of the collection is invalid or null")
-    if collection_id := create_id_from_name(collection_id):
-        return os.path.join(get_default_collections_path(repo_root), collection_id)
-    else:
-        raise ValueError("The slug name is invalid or null")
-
-
-def get_collection_metadata_path(repo_root: str = get_default_blog_repo_root(),
-                                 collection_id: str = get_default_collection_id()) -> str:
-    if collection_id is None:
-        raise ValueError("The name of the collection is invalid or null")
-    collection_id = create_id_from_name(collection_id)
-    return os.path.join(get_collection_path(repo_root, collection_id), get_default_metadata_path_name())
-
-
-def get_collection_metadata_filepath(
-        collection_id: str = get_default_collection_id(),
-        collections_path: str = get_default_collections_path()) -> str:
-    if collection_id is None:
-        raise ValueError("The collection ID is invalid or null")
-    if collections_path is None:
-        raise ValueError("The collections path is invalid or null")
-    return os.path.join(
-        get_collection_metadata_path(collection_id, collections_path),
-        get_default_collection_metadata_filename())
+    return os.path.abspath(os.path.join(storage_path, "blogs"))
 
 
 def get_blog_path(blog_id: str, collection_id: str = get_default_collection_id(),
-                  repo_root: str = get_default_blog_repo_root()) -> str:
+                  repo_root: str = get_default_storage_path()) -> str:
     """Get the absolute path to where the blog and its associated data is stored
 
     Args:
@@ -119,7 +76,7 @@ def get_blog_path(blog_id: str, collection_id: str = get_default_collection_id()
 
 
 def get_blog_metadata_path(blog_id: str, collection_id: str = get_default_collection_id(),
-                           collections_path: str = get_default_collections_path()) -> str:
+                           storage_path: str = get_default_storage_path()) -> str:
     """Get the absolute path to where the metadata is stored for the blog
 
     Args:
@@ -140,13 +97,13 @@ def get_blog_metadata_path(blog_id: str, collection_id: str = get_default_collec
         raise ValueError("The collection ID is invalid or null")
 
     return os.path.abspath(os.path.join(
-        get_blog_path(blog_id, collection_id, collections_path),
+        get_blog_path(blog_id, collection_id, storage_path),
         get_default_metadata_path_name()))
 
 
 def get_blog_metadata_filepath(
         blog_id: str, collection_id: str = get_default_collection_id(),
-        collections_path: str = get_default_collections_path()) -> str:
+        storage_path: str = get_default_storage_path()) -> str:
     """Get the absolute file path to where the metadata file is for a blog
 
     Args:
@@ -167,7 +124,7 @@ def get_blog_metadata_filepath(
         raise ValueError("The ID of the collection is invalid or null")
 
     return os.path.join(
-        get_blog_metadata_path(blog_id, collection_id, collections_path),
+        get_blog_metadata_path(blog_id, collection_id, storage_path),
         get_default_blog_metadata_filename())
 
 
@@ -178,7 +135,7 @@ def get_default_export_path(*paths) -> str:
         str: Returns the newly generaed path.
     """
     path_combined = os.sep.join(paths)
-    return os.path.abspath(os.path.join(get_repo_root(), "exported", path_combined))
+    return os.path.abspath(os.path.join(get_default_storage_path(), "exported", path_combined))
 
 
 def get_blog_export_path(blog_id: str, collection_id: str = get_default_collection_id()) -> str:

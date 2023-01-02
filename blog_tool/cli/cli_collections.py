@@ -6,14 +6,14 @@ from blog_tool.utility.blogs.utility_blogs import create_collection, get_collect
 from blog_tool.utility.click.utility_click import click_write_error, click_write_info, click_write_success
 from blog_tool.utility.rich.utility_rich import get_panel
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_storage_path
 
 
 @click.group("collections", help="Manage collections of blogs.")
 @click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_id(),
               help="The ID of the blog collection.")
 @click.option("--collection-path", "-p", "collections_path", type=str, required=False,
-              default=get_default_collections_path(),
+              default=get_default_storage_path(),
               help="The path to where the collections are stored.")
 @click.pass_context
 def cli_collections(ctx, collection_id: str, collections_path: str):
@@ -34,19 +34,7 @@ def cli_collections(ctx, collection_id: str, collections_path: str):
     if not os.path.exists(storage_path):
         raise IOError(f"The storage path \"{storage_path}\" does not exist.")
 
-    ctx.obj['collections_path'] = get_default_collections_path(storage_path)
-
-
-@cli_collections.command("list", help="List all the collections.")
-@click.option("--short", "-s", "short", is_flag=True, required=False,
-              help="Display a shorter output from the list of collections.")
-@click.pass_context
-def cli_collection_list(ctx, short: bool):
-    ctx.ensure_object(dict)
-    collections_path = ctx.obj['collections_path']
-    collections: list[BlogCollection] = get_collections(collections_path)
-    panel_collections_path = get_panel("Collections Path", collections_path)
-    panel_collections = get_panel("Collections", [collection.name for collection in collections])
+    ctx.obj['collections_path'] = get_default_storage_path(storage_path)
 
 
 @cli_collections.command("validate", help="Validate the collection and determine if there are any errors.")
@@ -56,16 +44,17 @@ def cli_collection_validate(ctx):
     collections: list[BlogCollection] = get_collections(collections_path)
 
 
-@cli_collections.command("delete", help="Delete the collections specified.")
-@click.option("--collection-id", "-c", "collection_ids", type=str, prompt="Collection ID", multiple=True, required=True,
+@cli_collections.command("delete", help="Delete the collection using the IDs specified.")
+@click.option("--collection-id", "-c", "collection_ids", type=str, prompt="Collection ID", multiple=True,
+              required=False, default=[get_default_collection_id()],
               help="The slug ID(s) of he collection(s) to delete.")
 @click.pass_context
-def cli_collection_delete(ctx, collections: List[str]):
-    if not collections:
+def cli_collection_delete(ctx, collection_ids: List[str]):
+    if not collection_ids:
         raise ValueError("The names specified are invalid or null")
 
-    for collection in collections:
-        continue
+    for collection in collection_ids:
+        pass
 
 
 @cli_collections.command("create", help="Create a new collection of blogs.")

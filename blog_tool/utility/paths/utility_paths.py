@@ -65,7 +65,7 @@ def _create_repo_root() -> str:
     return stdout.decode('ascii').rstrip()
 
 
-def get_repo_root() -> str:
+def get_default_storage_path() -> str:
     """Get the absolute path to the root of the Git repository.
 
     Returns:
@@ -84,4 +84,4 @@ def get_repo_root_path(*paths) -> str:
     Returns:
         str: Returns the absolute path.
     """
-    return os.path.join(get_repo_root(), *paths)
+    return os.path.join(get_default_storage_path(), *paths)

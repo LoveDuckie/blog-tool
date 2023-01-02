@@ -1,6 +1,6 @@
 import unittest
 
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_default_storage_path
 
 
 class TestPaths(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestPaths(unittest.TestCase):
         return super().tearDown()
 
     def test_default_collections_path(self):
-        assert get_default_collections_path() is not None
+        assert get_default_storage_path() is not None
 
     def test_default_collection_path(self):
         assert get_default_collection_path(get_default_collection_id()) is not None
