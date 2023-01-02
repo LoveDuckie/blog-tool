@@ -1,13 +1,6 @@
 from blog_tool.publishers.publisher_interface import PublisherInterface
 from gql import Client
 from gql.transport.aiohttp import AIOHTTPTransport
-import rich_click as click
-
-from blog_tool.utility.click.utility_click import click_write_success
-
-
-def _cli_command_get_blogs(ctx):
-    pass
 
 
 def get_hashnode_api_url(*paths) -> str:
@@ -28,9 +21,7 @@ class HashNodePublisher(PublisherInterface):
 
         super().__init__(*args, **kwargs)
 
-    async def upload(self, content: str, **kwargs):
-        return super().upload(content, **kwargs)
-
-    def extend_cli(self, cli_group: click.Group):
-        cli_group.add_command(_cli_command_get_blogs)
-        return super().extend_cli(cli_group)
+    async def publish(self, content: str, **kwargs):
+        if not content:
+            raise ValueError("The content is invalid or null")
+        return super().publish(content, **kwargs)

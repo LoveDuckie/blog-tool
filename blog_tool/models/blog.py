@@ -1,10 +1,9 @@
 from __future__ import annotations
 import json
 import os
-from typing import Any, List, Optional
-from pydantic import BaseModel
 
 from blog_tool.models.metadata.metadata_blog import BlogMetadata
+from blog_tool.utility.paths.utility_paths_blog import get_default_blog_metadata_filename
 
 
 class Blog:
@@ -14,6 +13,9 @@ class Blog:
         self._metadata = metadata
         self._loaded = False
         super().__init__()
+
+    def blog_path(self) -> str:
+        return
 
     @property
     def metadata(self):
@@ -56,7 +58,7 @@ class Blog:
             raise IOError(
                 f'The path \"{blog_path}\" is not a valid directory. It must be a directory.')
 
-        blog_metadata_filepath = os.path.join(blog_path, "blog.json")
+        blog_metadata_filepath = os.path.join(blog_path, get_default_blog_metadata_filename())
 
         if not os.path.isfile(blog_metadata_filepath):
             raise IOError(

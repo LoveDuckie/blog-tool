@@ -1,12 +1,8 @@
 from __future__ import annotations
-import json
-import os
-from typing import Any, List, Optional
-from pydantic import BaseModel
+from typing import List
 
 from blog_tool.models.blog import Blog
 from blog_tool.models.metadata.metadata_blog_collection import BlogCollectionMetadata
-from blog_tool.utility.click.utility_click import click_write_error, click_write_info
 
 
 class BlogCollection:
@@ -18,18 +14,26 @@ class BlogCollection:
 
     @property
     def id(self) -> str:
+        if not self._metadata:
+            raise ValueError("The blog collection meta data is invalid or null")
         return self._metadata.id
 
     @property
     def name(self) -> str:
+        if not self._metadata:
+            raise ValueError("The blog collection meta data is invalid or null")
         return self._metadata.name
 
     @property
     def description(self) -> str:
+        if not self._metadata:
+            raise ValueError("The blog collection meta data is invalid or null")
         return self._metadata.description
 
     @property
     def summary(self) -> str:
+        if not self._metadata:
+            raise ValueError("The blog collection meta data is invalid or null")
         return self._metadata.summary
 
     @property

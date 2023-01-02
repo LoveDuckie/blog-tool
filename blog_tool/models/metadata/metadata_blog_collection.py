@@ -21,6 +21,14 @@ class BlogCollectionMetadata(BaseModel):
     def __init__(__pydantic_self__, **data: Any) -> None:
         super().__init__(**data)
 
+    def get_collection_path(self) -> str:
+        pass
+
+    def get_blog_path(self, blog_id: str) -> str:
+        if not blog_id:
+            raise ValueError
+        return
+
     @classmethod
     def create(cls, metadata_filepath: str, **kwargs) -> BlogCollectionMetadata:
         if metadata_filepath is None:
@@ -34,7 +42,7 @@ class BlogCollectionMetadata(BaseModel):
         collection_metadata.save(metadata_filepath)
 
     @classmethod
-    def load(cls, metadata_filepath: str) -> BlogCollectionMetadata:
+    def load(cls, metadata_filepath: str, quiet: bool = False) -> BlogCollectionMetadata:
         if metadata_filepath is None:
             raise ValueError("The metadata filepath was not correctly defined")
 

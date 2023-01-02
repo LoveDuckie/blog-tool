@@ -10,8 +10,8 @@ class TestPaths(unittest.TestCase):
     def tearDown(self) -> None:
         return super().tearDown()
 
-    def testDefaultCollectionsPath(self):
+    def test_default_collections_path(self):
         assert get_default_collections_path() is not None
 
-    def testDefaultCollectionPath(self):
+    def test_default_collection_path(self):
         assert get_default_collection_path(get_default_collection_id()) is not None

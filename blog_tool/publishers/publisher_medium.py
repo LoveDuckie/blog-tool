@@ -1,3 +1,4 @@
+from blog_tool.models.blog import Blog
 from blog_tool.publishers.publisher_interface import PublisherInterface
 import rich_click as click
 
@@ -11,8 +12,7 @@ class MediumPublisher(PublisherInterface):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    async def upload(self, content: str):
-        return super().upload()
-
-    def extend_cli(self, cli_group: click.Group):
-        return super().extend_cli(cli_group)
+    async def publish(self, blog: Blog, **kwargs):
+        if not blog:
+            raise ValueError("The content is invalid or null")
+        return super().publish()

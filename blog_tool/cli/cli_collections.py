@@ -4,6 +4,7 @@ from blog_tool.models.blog_collection import BlogCollection
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import create_collection, get_collections, is_valid_collection
 from blog_tool.utility.click.utility_click import click_write_error, click_write_info, click_write_success
+from blog_tool.utility.rich.utility_rich import get_panel
 from blog_tool.utility.utility_names import create_id_from_name
 from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
 
@@ -23,7 +24,17 @@ def cli_collections(ctx, collection_id: str, collections_path: str):
         raise ValueError("The collections path is invalid or null")
 
     ctx.obj['collection_id'] = collection_id
-    ctx.obj['collections_path'] = collections_path
+
+    storage_path = ctx.obj['storage_path']
+
+    if not os.path.isabs(storage_path):
+        raise IOError(f"The storage path \"{storage_path}\" is not an absolute path.")
+    if not os.path.isdir(storage_path):
+        raise IOError(f"The storage path \"{storage_path}\" is not a valid directory.")
+    if not os.path.exists(storage_path):
+        raise IOError(f"The storage path \"{storage_path}\" does not exist.")
+
+    ctx.obj['collections_path'] = get_default_collections_path(storage_path)
 
 
 @cli_collections.command("list", help="List all the collections.")
@@ -31,30 +42,18 @@ def cli_collections(ctx, collection_id: str, collections_path: str):
               help="Display a shorter output from the list of collections.")
 @click.pass_context
 def cli_collection_list(ctx, short: bool):
+    ctx.ensure_object(dict)
     collections_path = ctx.obj['collections_path']
-    collections: List[BlogCollection] = get_collections(collections_path)
+    collections: list[BlogCollection] = get_collections(collections_path)
+    panel_collections_path = get_panel("Collections Path", collections_path)
+    panel_collections = get_panel("Collections", [collection.name for collection in collections])
 
 
 @cli_collections.command("validate", help="Validate the collection and determine if there are any errors.")
-@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_id(),
-              help="The ID for the collection")
-@click.option("--all", "-a", "validate_all", is_flag=True, help="If all collections should be validated.")
-def cli_collection_validate(ctx, collection_id: str, validate_all: bool):
+def cli_collection_validate(ctx):
+    ctx.ensure_object(dict)
     collections_path = ctx.obj['collections_path']
-    if not collections_path:
-        raise ValueError(
-            "The absolute path to the collections is invalid or null")
-
-    if not os.path.exists(collections_path):
-        raise ValueError("The collections path is invalid or null")
-
-    error_messages = []
-    for collection in os.listdir(collections_path):
-        return
-
-    if any(error_messages):
-        for msg in error_messages:
-            click_write_error(msg)
+    collections: list[BlogCollection] = get_collections(collections_path)
 
 
 @cli_collections.command("delete", help="Delete the collections specified.")

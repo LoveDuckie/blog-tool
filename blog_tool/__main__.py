@@ -12,6 +12,7 @@ from blog_tool.utility.paths.utility_paths import get_default_user_config_filepa
 from blog_tool.utility.rich.utility_rich import echo_panel_warning
 from blog_tool.utility.utility_header import echo_header
 from blog_tool.utility.utility_rich_click import click_console_echo_error, click_console_echo_exception
+from blog_tool.utility.utility_variables import get_tool_environment_variable_name
 
 
 click.rich_click.SHOW_ARGUMENTS = True
@@ -22,28 +23,41 @@ logger = get_logger()
 echo_header("header2")
 
 
-def validate_user_config_filepath():
-    return
+def init_user_config_file(config_filepath: str):
+    pass
+
+
+def init_storage(storage_path: str):
+    pass
 
 
 @click.group(help="The command-line interface for the tool.")
-@click.option("--show-header", "-s", "show_header", envvar="BLOG_TOOL_SHOW_HEADER", is_flag=True, default=True,
-              help="Display the ASCII header.")
-@click.option("--storage-path", "-p", "storage_path", envvar="BLOG_TOOL_STORAGE_PATH",
+@click.option("--show-header", "-s", "show_header", envvar=get_tool_environment_variable_name("SHOW_HEADER"),
+              is_flag=True, default=True, help="Display the ASCII header.")
+@click.option("--storage-path", "-p", "storage_path", envvar=get_tool_environment_variable_name("STORAGE_PATH"),
               help="The path to where the blogs and collections are stored.", required=False, default=os.getcwd(),
               show_default=True)
-@click.option("--create-storage-path", "-f", "create_storage_path", envvar="BLOG_TOOL_CREATE_STORAGE_PATH",
-              help="Attempt to create the storage path for the blogs automatically.", required=False,
-              default=True,
+@click.option("--create-storage-path", "-f", "create_storage_path",
+              envvar=get_tool_environment_variable_name("CREATE_STORAGE_PATH"),
+              help="Attempt to create the storage path for the blogs automatically.", required=False, default=True,
               show_default=True)
-@click.option("--config-filepath", "-c", "config_filepath", envvar="BLOG_TOOL_CONFIG_FILEPATH",
+@click.option("--config-filepath", "-c", "config_filepath",
+              envvar=get_tool_environment_variable_name("CONFIG_FILEPATH"),
               help="The absolute filepath to the configuration file.", required=False,
               default=get_default_user_config_filepath(),
               show_default=True)
 @click.pass_context
 def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_storage_path: True):
     ctx.ensure_object(dict)
-    validate_user_config_filepath()
+    try:
+        init_user_config_file()
+    except Exception as exc:
+        pass
+    try:
+        init_storage()
+    except Exception as exc:
+        pass
+
     if not storage_path:
         raise ValueError("The storage path is invalid or null")
     if not os.path.isabs(storage_path):

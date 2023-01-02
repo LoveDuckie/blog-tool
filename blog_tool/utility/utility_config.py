@@ -1,9 +1,9 @@
 from configparser import ConfigParser
 from pathlib import Path
 import os
-from typing import Any, List
-
-from blog_tool.utility.utility_paths import get_default_package_config_filepath, get_default_user_config_filepath
+from typing import Any
+from blog_tool import __project__
+from blog_tool.utility.paths.utility_paths import get_default_package_config_filepath, get_default_user_config_filepath
 
 config_env_map = None
 
@@ -28,7 +28,7 @@ def _get_user_config() -> ConfigParser:
 
 
 def get_application_user_path(*paths):
-    return os.path.join(Path.home(), "blog_tool", *paths)
+    return os.path.join(Path.home(), __project__, *paths)
 
 
 def is_config_property(property_section_id: str, property_id: str) -> bool:

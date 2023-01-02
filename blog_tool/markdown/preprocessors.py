@@ -1,3 +1,4 @@
+from typing import Any
 from markdown import preprocessors, postprocessors, processor, inlinepatterns
 from markdown.extensions import Extension
 import xml.etree.ElementTree as etree
@@ -11,6 +12,9 @@ class CodeblockProcessor(inlinepatterns.InlineProcessor):
 
 
 class CodeblockExtension(Extension):
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+
     def extendMarkdown(self, md):
         CODE_BLOCK_PATTERN = r'```[a-zA-Z]+(.*?)```'  # like --del--
         md.inlinePatterns.register(CodeblockProcessor(

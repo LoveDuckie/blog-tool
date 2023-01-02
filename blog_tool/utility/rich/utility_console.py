@@ -47,4 +47,4 @@ def console_echo_exception(exception: Exception, *msgs):
     if exception is None:
         raise ValueError("The excpetion is invalid or null")
     message = _format_messages(*msgs)
-    get_package_console().print("")
+    get_package_console().print(message)

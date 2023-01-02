@@ -67,17 +67,18 @@ def get_default_collection_path(repo_root=get_default_blog_repo_root(), collecti
     Returns:
         str: Get the absolute path to the default collection.
     """
-    return get_collection_path(repo_root, get_default_collection_id() if not collection_id else collection_id)
+    return get_collection_path(
+        repo_root, collection_id or get_default_collection_id()
+    )
 
 
 def get_collection_path(repo_root: str, collection_id: str = get_default_collection_id()) -> str:
     if not collection_id:
         raise ValueError("The name of the collection is invalid or null")
-    # Sanitise the collection name
-    collection_id = create_id_from_name(collection_id)
-    if not collection_id:
+    if collection_id := create_id_from_name(collection_id):
+        return os.path.join(get_default_collections_path(repo_root), collection_id)
+    else:
         raise ValueError("The slug name is invalid or null")
-    return os.path.join(get_default_collections_path(repo_root), collection_id)
 
 
 def get_collection_metadata_path(repo_root: str = get_default_blog_repo_root(),

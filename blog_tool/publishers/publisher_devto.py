@@ -7,8 +7,7 @@ class DevToPublisher(PublisherInterface):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    async def upload(self, content: str):
-        return super().upload(content)
-
-    def extend_cli(self, cli_group: click.Group):
-        return super().extend_cli(cli_group)
+    async def publish(self, content: str):
+        if not content:
+            raise ValueError("The content is invalid or null")
+        return super().publish(content)

@@ -1,7 +1,7 @@
 import rich_click as click
 from blog_tool.utility.blogs.utility_blogs import is_valid_blog, is_valid_collection
 from blog_tool.utility.click.utility_click import click_write_error
-from blog_tool.utility.paths.utility_paths_blog import get_default_collections_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collections_path
 
 
 @click.group("publish", help="Modify the behaviour of the blog_tool tool.")
@@ -14,7 +14,8 @@ def cli_publish(ctx):
 
 @cli_publish.command("blog", help="Publish a blog.")
 @click.option("--blog-id", "-b", "blog_id", type=str, default=None, required=True, prompt=True, prompt_required=True)
-@click.option("--collection-id", "-c", "collection_id", type=str, default="default", required=True, prompt=True, prompt_required=True)
+@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_id(),
+              required=False, prompt=True, prompt_required=True)
 @click.pass_context
 def cli_publish_blog(ctx, blog_id: str, collection_id: str):
     ctx.ensure_object(dict)
@@ -39,9 +40,12 @@ def cli_publish_blog(ctx, blog_id: str, collection_id: str):
 
 
 @cli_publish.command("collection", help="Publish a collection.")
-@click.option('--collection-id', '-c', 'collection_id', type=str, default=None, required=True, prompt=True, prompt_required=True)
+@click.option("--collection-id", "-c", "collection_id", type=str, default=get_default_collection_id(),
+              required=False, prompt=True, prompt_required=True)
 @click.pass_context
 def cli_publish_collection(ctx, collection_id: str):
     ctx.ensure_object(dict)
     if collection_id is None:
         raise ValueError("The collection ID specified is invalid or null")
+    if not is_valid_collection(collection_id):
+        raise ValueError("The collection ID specified is invalid")
