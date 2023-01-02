@@ -7,13 +7,17 @@ A command-line Python tool that is responsible for exporting and publishing arti
 Find below the number of platforms that are currently supported.
 
 - **Hashnode**
-  - **Website:** [https://hashnode.com/](https://hashnode.com/)
+  - A blogging platform for developers.
+  - [https://hashnode.com/](https://hashnode.com/)
 - **Dev.to**
-  - **Website:** [https://dev.to/](https://dev.to/)
+  - A blogging platform for developers.
+  - [https://dev.to/](https://dev.to/)
 - **Silverstripe**
-  - **Website:** [https://silverstripe.org](https://www.silverstripe.org/)
+  - An extensible content management system and framework.
+  - [https://silverstripe.org](https://www.silverstripe.org/)
 - **WordPress**
-  - **Website:** [https://wordpress.org](https://www.wordpress.org/)
+  - A blogging and content management system.
+  - [https://wordpress.org](https://www.wordpress.org/)
 
 ## Publishers
 
