@@ -21,7 +21,7 @@ An "Uploader" is a Python type responsible for uploading a blog to a target plat
 
 ## Exporters
 
-An "Exporter" is a Python type responsible for "rendering" or "producing" file in another format from Markdown source, such as HTMl or PDF.
+An "Exporter" is a Python type responsible for "rendering" or "producing" file in another format from Markdown source, such as HTML or PDF.
 
 - **PDF**
   - Render a PDF document form a Markdown source file. The rendered output is customizable with various parameters.
