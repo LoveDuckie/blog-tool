@@ -7,18 +7,28 @@ from blog_tool.utility.paths.utility_paths import get_default_package_config_fil
 
 config_env_map = None
 
+_config_parser: ConfigParser = None
+
 
 def _get_config_env_map() -> dict[str, str]:
+    """Get all environment variables relating to this tool as a dictionary
+
+    Returns:
+        dict[str, str]: A dictionary instance of all environment variables relating ot this tool.
+    """
     global config_env_map
     if config_env_map is not None:
         return config_env_map
     return {}
 
 
-def _get_config() -> ConfigParser:
-    config_parser = ConfigParser()
-    config_parser.read(get_default_package_config_filepath())
-    return config_parser
+def _get_config(config_filepath: str = get_default_package_config_filepath()) -> ConfigParser:
+    global _config_parser
+    if not config_filepath:
+        raise ValueError("The configuration filepath is invalid or null")
+    _config_parser = ConfigParser()
+    _config_parser.read(config_filepath)
+    return _config_parser
 
 
 def _get_user_config() -> ConfigParser:
@@ -32,6 +42,7 @@ def get_application_user_path(*paths):
 
 
 def is_config_property(property_section_id: str, property_id: str) -> bool:
+    # sourcery skip: assign-if-exp, boolean-if-exp-identity, reintroduce-else, remove-unnecessary-cast
     """Determine whether the configuration property exists in the section specified.
 
     Args:

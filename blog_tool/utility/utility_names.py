@@ -23,7 +23,7 @@ def create_id_from_name(name: str) -> str:
     return formatted.lower()
 
 
-def sanitize_name(name: str, replace: str) -> str:
+def sanitize_name(name: str, replace: str = "_") -> str:
     """Sanitize the name
 
     Args:

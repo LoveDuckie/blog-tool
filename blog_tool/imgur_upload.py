@@ -3,7 +3,7 @@ import rich_click as click
 import requests
 
 from blog_tool.utility.click.utility_click import click_write_error, click_write_info
-from blog_tool.utility.utility_config import get_config_property
+from blog_tool.utility.config.utility_config import get_config_property
 
 
 def get_imgur_api_endpoint(*urls) -> str:

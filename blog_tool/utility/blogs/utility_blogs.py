@@ -2,9 +2,10 @@ import os
 from blog_tool.models.blog import Blog, BlogMetadata
 from blog_tool.models.blog_collection import BlogCollection, BlogCollectionMetadata
 from blog_tool.utility.blogs.utility_blogs_validation import is_valid_collection
+from blog_tool.utility.paths.utility_paths_blog_storage import get_default_collections_path, get_default_storage_path
 from blog_tool.utility.utility_names import create_id_from_name
 
-from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_id, get_default_storage_path, get_default_storage_path
+from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_id, get_repo_root, get_repo_root
 
 _collection_dirs = ['.metadata', 'assets', 'blogs']
 _blog_dirs = ['.metadata', 'assets']
@@ -58,8 +59,24 @@ def create_collections_paths(target_path: str) -> None:
 
 
 def create_blog_metadata_file(
-        blog_id: str, collection_id: str, collections_path: str = get_default_storage_path(),
+        blog_id: str, collection_id: str, collections_path: str = get_repo_root(),
         **kwargs) -> BlogMetadata:
+    """Return the newly instantiated blog metadata file
+
+    Args:
+        blog_id (str): The ID for the blog
+        collection_id (str): The collecti onf othe blog
+        collections_path (str, optional): The absolute path to where the collections are stored. Defaults to get_repo_root().
+
+    Raises:
+        ValueError: If the blog Id is invalid or null
+        ValueError: If the collection ID is invalid or null
+        IOError: If the collections path does not exist
+        ValueError: If the blog is invalid or null
+
+    Returns:
+        BlogMetadata: The instantiated blog metadata model
+    """
     if blog_id is None:
         raise ValueError("The blog ID is invalid or null.")
 
@@ -83,7 +100,7 @@ def create_blog_metadata_file(
 
 def create_blog(
         blog_id: str, collection_id: str = get_default_collection_id(),
-        collections_path: str = get_default_storage_path(),
+        collections_path: str = get_repo_root(),
         **kwargs):
     global _blog_dirs
     if not blog_id:
@@ -101,13 +118,17 @@ def create_blog(
     create_blog_metadata_file()
 
 
-def delete_collection(repo_root: str, collection_id: str):
+def delete_collection(collection_id: str, storage_path: str = get_default_storage_path()):
+    if not collection_id:
+        raise ValueError("The collection ID is invalid or null")
+    if not storage_path:
+        raise ValueError("The absolute path to where the blogs are stored on disk")
     return
 
 
 def create_collection(
         collection_id: str = get_default_collection_id(),
-        storage_path: str = get_default_storage_path(),
+        storage_path: str = get_repo_root(),
         **kwargs):
     """Create the blog collection
 
@@ -142,7 +163,7 @@ def create_collection(
 
 
 def create_collection_metadata_file(
-        collection_id: str, storage_path: str = get_default_storage_path(),
+        collection_id: str, storage_path: str = get_repo_root(),
         **kwargs) -> BlogCollectionMetadata:
     if collection_id is None:
         raise ValueError("The collection name is invalid or null")
@@ -169,47 +190,23 @@ def create_collection_metadata_file(
         raise ValueError("The collection metadata is invalid or null")
 
 
-def get_collections(collections_path: str = get_default_storage_path()) -> list[BlogCollection]:
-    """Get a list of blog collections
+def get_collection(collection_id: str, storage_path: str = get_default_storage_path()) -> BlogCollection:
+    """Retrieve the instantiated collection
 
     Args:
-        collections_path (str, optional): The absolute path to blog collections.. Defaults to get_default_collections_path().
+        collection_id (str): The ID for the collection to load
+        collections_path (str, optional): The absolute path to where the collections are stored. Defaults to get_repo_root().
 
     Raises:
-        ValueError: The collections path specified is invalid or null
-        IOError: The collections path does not exist.
-        IOError: The collection path does not exist.
+        ValueError: If the collection ID is invalid or null
+        ValueError: If the absolute path to where the colletions are stored is invalid or null
+        IOError: If the collections metadata file is invalid or null
+        ValueError: If the collection metadata model loaded is invalid or null
 
     Returns:
-        list[BlogCollection]: A list of collections.
+        BlogCollection: The instantiated blog collection.
     """
-    if collections_path is None:
-        raise ValueError("The path specified is invalid or null")
-
-    if not os.path.exists(collections_path):
-        raise IOError(
-            f"The path \"{collections_path}\" does not exist. Unable to continue.")
-
-    collections = []
-
-    for collection_id in os.listdir(collections_path):
-        collection_path = os.path.join(collections_path, collection_id)
-        if not os.path.exists(collection_path):
-            raise IOError(
-                f"Failed: unable to find the path \"{collection_path}\"")
-
-        if not is_valid_collection(collection_id, collections_path):
-            raise Exception(
-                f"The collection \"{collection_id}\" is not valid.")
-
-        collection = BlogCollection(BlogCollectionMetadata.load(
-            get_collection_metadata_filepath(collection_id, collections_path)))
-        collections.append(collection)
-
-    return collections
-
-
-def get_collection(collection_id: str, collections_path: str = get_default_storage_path()) -> BlogCollection:
+    collections_path = get_default_collections_path(storage_path)
     if collection_id is None:
         raise ValueError("The collection ID is invalid or null")
 
@@ -230,7 +227,7 @@ def get_collection(collection_id: str, collections_path: str = get_default_stora
 
 
 def get_blogs(collection_id: str = get_default_collection_id(),
-              collections_path: str = get_default_storage_path()) -> list:
+              collections_path: str = get_repo_root()) -> list:
     blogs = []
 
     collection_path = get_collection_path(collection_id, collections_path)

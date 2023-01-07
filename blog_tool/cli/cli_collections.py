@@ -6,14 +6,14 @@ from blog_tool.utility.blogs.utility_blogs import create_collection, get_collect
 from blog_tool.utility.click.utility_click import click_write_error, click_write_info, click_write_success
 from blog_tool.utility.rich.utility_rich import get_panel
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_storage_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_repo_root
 
 
 @click.group("collections", help="Manage collections of blogs.")
 @click.option("--collection-id", "-c", "collection_id", type=str, required=False, default=get_default_collection_id(),
               help="The ID of the blog collection.")
 @click.option("--collection-path", "-p", "collections_path", type=str, required=False,
-              default=get_default_storage_path(),
+              default=get_repo_root(),
               help="The path to where the collections are stored.")
 @click.pass_context
 def cli_collections(ctx, collection_id: str, collections_path: str):
@@ -34,7 +34,7 @@ def cli_collections(ctx, collection_id: str, collections_path: str):
     if not os.path.exists(storage_path):
         raise IOError(f"The storage path \"{storage_path}\" does not exist.")
 
-    ctx.obj['collections_path'] = get_default_storage_path(storage_path)
+    ctx.obj['collections_path'] = get_repo_root(storage_path)
 
 
 @cli_collections.command("validate", help="Validate the collection and determine if there are any errors.")

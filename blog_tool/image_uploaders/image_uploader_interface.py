@@ -9,6 +9,14 @@ class ImageUploaderInterface(ABC):
         pass
 
     @abstractmethod
+    def requires_authentication(self):
+        return
+
+    @abstractmethod
+    def authenticate(self):
+        return
+
+    @abstractmethod
     def upload(self, target_filepath: str):
         if not target_filepath:
             raise ValueError("The target filepath is invalid or null")

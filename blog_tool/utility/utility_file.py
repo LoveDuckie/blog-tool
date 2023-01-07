@@ -2,7 +2,7 @@ import base64
 import os
 
 
-def encode_image_as_base64(target_filepath: str) -> str:
+def encode_file_as_base64(target_filepath: str) -> str:
     """Encode the binary image file as base64 text
 
     Args:
@@ -35,7 +35,7 @@ def encode_image_as_base64(target_filepath: str) -> str:
     return encoded_string
 
 
-def decode_base64_as_image(target_filepath: str) -> bytes:
+def decode_base64_as_file(target_filepath: str) -> bytes:
     if not target_filepath:
         raise ValueError("The target filepath is invalid or null. Unable to continue.")
 

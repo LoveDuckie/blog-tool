@@ -4,7 +4,6 @@ import os
 from typing import Any, List, Optional
 from pydantic import BaseModel
 
-from blog_tool.models.blog import Blog
 from blog_tool.utility.click.utility_click import click_write_error, click_write_info
 
 

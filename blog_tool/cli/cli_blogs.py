@@ -6,7 +6,7 @@ from blog_tool.utility.blogs.utility_blogs import create_blog, get_blogs, is_val
 from blog_tool.utility.click.utility_click import click_write_debug, click_write_error, click_write_info
 from blog_tool.utility.utility_exporters import get_exporter_modules_names
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_default_storage_path
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_repo_root
 
 
 @click.group("blogs", help="Manage blogs.")
@@ -93,7 +93,7 @@ def cli_blogs_list(ctx):
     path = ctx.obj['path']
     if not collection_id:
         raise ValueError("The collection ID is invalid or null")
-    collections_path = get_default_storage_path(path)
+    collections_path = get_repo_root(path)
     collection_path = get_default_collection_path()
 
     click_write_info(f"Listing Blogs: \"{collection_id}\"")
@@ -133,7 +133,7 @@ def cli_blogs_list(ctx):
 @click.option("--exporter", type=click.Choice(get_exporter_modules_names(),
                                               case_sensitive=True),
               multiple=True, required=True, help="The type qualification for the exporter to use.")
-@click.option("--collections-path", "-p", "collections_path", default=get_default_storage_path(),
+@click.option("--collections-path", "-p", "collections_path", default=get_repo_root(),
               required=False, help="The absolute path to where the collections are stored.")
 @click.option("--collection-id", "-c", "collection_id", default=get_default_collection_id(),
               required=False, help="The ID or name of the collection to export the blog from.")

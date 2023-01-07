@@ -25,6 +25,17 @@ def get_host_from_url(url: str) -> str:
 
 
 def is_valid_url(url: str) -> bool:
+    """Determine whether the URL specified is considered valid
+
+    Args:
+        url (str): The URL to check or validate
+
+    Raises:
+        ValueError: The URL specified is ivnalid or null
+
+    Returns:
+        bool: Returns boolean value indicating whether the URL is determined to be valid.
+    """
     if not url:
         raise ValueError("The URL is invalid or null")
     match = re.match(

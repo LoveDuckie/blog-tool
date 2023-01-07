@@ -1,9 +1,9 @@
 import os
-from blog_tool.utility.paths.utility_paths_blog import get_collection_path, get_default_collection_id, get_default_storage_path
+from blog_tool.utility.paths.utility_paths_blog import get_collection_path, get_default_collection_id, get_repo_root
 
 
 def is_valid_collection(collection_id: str = get_default_collection_id(),
-                        storage_path: str = get_default_storage_path()) -> bool:
+                        storage_path: str = get_repo_root()) -> bool:
     if collection_id is None or not collection_id:
         raise ValueError("The blog collection ID is invalid or null")
 
@@ -17,7 +17,7 @@ def is_valid_collection(collection_id: str = get_default_collection_id(),
 
 
 def is_valid_blog(blog_id: str, collection_id: str = get_default_collection_id(),
-                  storage_path: str = get_default_storage_path()) -> bool:
+                  storage_path: str = get_repo_root()) -> bool:
     # sourcery skip: raise-specific-error
     if blog_id is None:
         raise ValueError("The blog slug name is invalid or null")

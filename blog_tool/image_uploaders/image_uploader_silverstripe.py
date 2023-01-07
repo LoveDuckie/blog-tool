@@ -3,7 +3,7 @@
 from blog_tool.image_uploaders.image_uploader_interface import ImageUploaderInterface
 
 
-class SilverStripeImageUploader(ImageUploaderInterface):
+class SilverstripeImageUploader(ImageUploaderInterface):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 

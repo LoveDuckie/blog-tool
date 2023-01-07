@@ -1,8 +1,9 @@
 from __future__ import annotations
-from typing import List, Optional
 import os
-from typing import Any, List, Optional
+from typing import Any, Optional
 from pydantic import BaseModel
+
+from blog_tool.models.images.blog_image import BlogImage
 
 
 class BlogMetadata(BaseModel):
@@ -10,12 +11,13 @@ class BlogMetadata(BaseModel):
     name: str
     checksum: str
     summary: str
-    programming_languages: Optional[List[str]]
-    technologies: Optional[List[str]]
-    platforms: Optional[List[str]]
-    tags: Optional[List[str]]
+    programming_languages: Optional[list[str]]
+    technologies: Optional[list[str]]
+    platforms: Optional[list[str]]
+    tags: Optional[list[str]]
     path: Optional[str]  # The path to where the blog is located.
     filepath: Optional[str]
+    images: list[BlogImage]
 
     def __init__(__pydantic_self__, **data: Any) -> None:
         super().__init__(**data)

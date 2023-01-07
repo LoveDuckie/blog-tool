@@ -10,7 +10,7 @@ from blog_tool.logging.blog_tool_logger import get_logger
 import rich_click as click
 from blog_tool.utility.paths.utility_paths import get_default_user_config_filepath
 from blog_tool.utility.rich.utility_rich import echo_panel_warning
-from blog_tool.utility.utility_header import echo_header
+from blog_tool.utility.utility_header import echo_header, get_default_header_name
 from blog_tool.utility.utility_rich_click import click_console_echo_error, click_console_echo_exception
 from blog_tool.utility.utility_variables import get_tool_environment_variable_name
 
@@ -20,15 +20,7 @@ click.rich_click.GROUP_ARGUMENTS_OPTIONS = True
 
 logger = get_logger()
 
-echo_header("header2")
-
-
-def init_user_config_file(config_filepath: str):
-    pass
-
-
-def init_storage(storage_path: str):
-    pass
+echo_header(get_default_header_name())
 
 
 @click.group(help="The command-line interface for the tool.")
@@ -49,14 +41,6 @@ def init_storage(storage_path: str):
 @click.pass_context
 def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_storage_path: True):
     ctx.ensure_object(dict)
-    try:
-        init_user_config_file()
-    except Exception as exc:
-        logger.exception(exc)
-    try:
-        init_storage()
-    except Exception as exc:
-        logger.exception(exc)
 
     if not storage_path:
         raise ValueError("The storage path is invalid or null")
@@ -67,7 +51,10 @@ def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_
 
     if not os.path.exists(storage_path) and create_storage_path:
         echo_panel_warning("Invalid Storage Path", f"Creating storage path as it does not exist (\"{storage_path}\")")
-        os.makedirs(storage_path)
+        try:
+            os.makedirs(storage_path)
+        except IOError as exc:
+            return
     ctx.obj['storage_path'] = storage_path
 
     if not config_filepath:

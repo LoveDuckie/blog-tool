@@ -1,7 +1,5 @@
 from __future__ import annotations
-from typing import List
 
-from blog_tool.models.blog import Blog
 from blog_tool.models.metadata.metadata_blog_collection import BlogCollectionMetadata
 
 
@@ -36,14 +34,14 @@ class BlogCollection:
             raise ValueError("The blog collection meta data is invalid or null")
         return self._metadata.summary
 
-    @property
-    def blogs(self) -> List[Blog]:
-        if hasattr(self, "blogs"):
-            return self.blogs
-        blogs = []
+    # @property
+    # def blogs(self) -> List[Blog]:
+    #     if hasattr(self, "blogs"):
+    #         return self.blogs
+    #     blogs = []
 
-        setattr(self, "blogs", blogs)
-        return blogs
+    #     setattr(self, "blogs", blogs)
+    #     return blogs
 
-    def _load_blogs(self):
-        return
+    # def _load_blogs(self):
+    #     return

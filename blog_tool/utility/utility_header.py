@@ -4,6 +4,9 @@ from blog_tool.utility.rich.utility_console import get_package_console
 import os
 
 
+def get_default_header_name() -> str:
+    return "header2"
+
 def get_headers_path() -> str:
     """Generate the absolute path to where headers are sdtored
 

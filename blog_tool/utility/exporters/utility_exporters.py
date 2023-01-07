@@ -22,6 +22,17 @@ def get_exporter_modules_names() -> List[str]:
 
 
 def is_valid_exporter(exporter_id: str) -> bool:
+    """If the exporter is considered valid
+
+    Args:
+        exporter_id (str): The ID for the exporter
+
+    Raises:
+        ValueError: If the exporter ID is considered valid
+
+    Returns:
+        bool: If the boolean value is discoverable in the list of module names read from disk
+    """
     if exporter_id is None:
         raise ValueError("The exporter ID is invalid or null")
 
