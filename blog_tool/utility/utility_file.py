@@ -36,6 +36,20 @@ def encode_file_as_base64(target_filepath: str) -> str:
 
 
 def decode_base64_as_file(target_filepath: str) -> bytes:
+    """Decode the text file as base64 data in bytes
+
+    Args:
+        target_filepath (str): The absolute path to the target file to decode. Must be a text file.
+
+    Raises:
+        ValueError: If the target file path is invalid
+        IOError: If the target file path is not an absoltue path
+        IOError: If the target file path is not a file
+        IOError: If the target file does not exist
+
+    Returns:
+        bytes: The decoded base64 bytes.
+    """
     if not target_filepath:
         raise ValueError("The target filepath is invalid or null. Unable to continue.")
 

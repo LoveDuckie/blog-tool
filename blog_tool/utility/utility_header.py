@@ -5,7 +5,13 @@ import os
 
 
 def get_default_header_name() -> str:
+    """Get the default ASCII header to emit to the console
+
+    Returns:
+        str: The string literal depicting the header file to emit to the console
+    """
     return "header2"
+
 
 def get_headers_path() -> str:
     """Generate the absolute path to where headers are sdtored

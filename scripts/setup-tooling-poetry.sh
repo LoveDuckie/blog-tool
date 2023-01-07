@@ -7,7 +7,7 @@
 
 EOF
 CURRENT_SCRIPT_DIRECTORY=${CURRENT_SCRIPT_DIRECTORY:-$(dirname $(realpath $0))}
-export SHARED_SCRIPTS_PATH=${SHARED_SCRIPTS_PATH:-$(realpath $CURRENT_SCRIPT_DIRECTORY/scripts)}
+export SHARED_SCRIPTS_PATH=${SHARED_SCRIPTS_PATH:-$(realpath $CURRENT_SCRIPT_DIRECTORY)}
 export CURRENT_SCRIPT_FILENAME=${CURRENT_SCRIPT_FILENAME:-$(basename $0)}
 export CURRENT_SCRIPT_FILENAME_BASE=${CURRENT_SCRIPT_FILENAME%.*}
 source "$SHARED_SCRIPTS_PATH/shared-functions.sh"
@@ -25,7 +25,7 @@ if ! write_response "setup-tooling-poetry" "install: poetry"; then
     exit 2
 fi
 
-echo "export PATH=\"~/.local/bin:\$PATH\"" >> ~/.profile
+echo "export PATH=\"~/.local/bin:\$PATH\"" >>~/.profile
 . ~/.profile
 
 if ! is_command_available poetry; then

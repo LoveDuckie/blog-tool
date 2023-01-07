@@ -8,7 +8,7 @@ RUN chmod -R ug+rwx /blog-tool
 
 FROM blog-tool-base as blog-tool-system
 
-RUN apt -yqq update && apt -yqq upgrade && apt -yqq install ssh build-essential gcc sudo && apt -yqq autoremove
+RUN apt -yqq update && apt -yqq upgrade && apt -yqq install ssh build-essential gcc sudo curl git && apt -yqq autoremove
 
 FROM blog-tool-system as blog-tool-poetry
 

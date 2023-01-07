@@ -1,6 +1,7 @@
 import os
 from blog_tool.utility.paths.utility_paths_blog_collection import get_default_collection_id
-from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path, get_default_export_path, get_blog_path
+from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path, get_default_exported_path, get_blog_path
+from blog_tool.utility.paths.utility_paths_storage import get_blog_path
 from blog_tool.utility.paths.utility_paths import get_default_metadata_path_name
 
 
@@ -66,7 +67,7 @@ def get_blog_metadata_filepath(
         get_default_blog_metadata_filename())
 
 
-def get_blog_export_path(blog_id: str, collection_id: str = get_default_collection_id()) -> str:
+def get_blog_exported_path(blog_id: str, collection_id: str = get_default_collection_id()) -> str:
     """Retrieve the absolute path to where the blog is to be exported
 
     Args:
@@ -85,4 +86,4 @@ def get_blog_export_path(blog_id: str, collection_id: str = get_default_collecti
     if collection_id is None:
         raise ValueError("The collection is not considered valid.")
 
-    return get_default_export_path("collections", collection_id, "blogs", blog_id)
+    return get_default_exported_path("collections", collection_id, "blogs", blog_id)

@@ -6,6 +6,8 @@ import xml.etree.ElementTree as etree
 
 class CodeblockProcessor(inlinepatterns.InlineProcessor):
     def handleMatch(self, match, data):
+        if not data:
+            raise ValueError("The data handled is invalid or null")
         el = etree.Element('del')
         el.text = match.group(1)
         return el, match.start(0), match.end(0)

@@ -1,9 +1,9 @@
 #!/bin/bash
 <<EOF
 
-   Blog Tool \ Tests \ Run
+   Blog Tool \ Docker \ Run
 
-   Run all available unit tests for this project
+   Run the command against the Docker container
 
 EOF
 CURRENT_SCRIPT_DIRECTORY_ENV=$(dirname $(realpath ${BASH_SOURCE[0]:-${(%):-%x}}))
@@ -12,3 +12,5 @@ export CURRENT_SCRIPT_FILENAME=$(basename ${BASH_SOURCE[0]:-${(%):-%x}})
 export CURRENT_SCRIPT_FILENAME_BASE=${CURRENT_SCRIPT_FILENAME%.*}
 . "$SHARED_SCRIPTS_PATH_ENV/shared-functions.sh"
 write_header
+
+docker-compose container exec

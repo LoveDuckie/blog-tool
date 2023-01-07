@@ -20,7 +20,7 @@ def get_collections_path(storage_path: str = get_default_storage_path()) -> str:
     return os.path.abspath(os.path.join(storage_path, "collections"))
 
 
-def get_default_export_path(*paths) -> str:
+def get_default_exported_path(*paths) -> str:
     """Get the default export path for exporting or rendering blogs out to.
 
     Returns:

@@ -1,6 +1,6 @@
 import pkgutil
 from typing import List
-from blog_tool import image_uploaders
+from blog_tool.images import uploaders
 from blog_tool.utility.blogs.utility_blogs import is_valid_collection
 from blog_tool.utility.paths.utility_paths_blog_collection import get_default_collection_name, get_default_collections_path
 from blog_tool.utility.blogs.utility_blogs import is_valid_blog
@@ -20,7 +20,7 @@ def get_image_uploader_modules() -> List:
             lambda x: x.name,
             filter(
                 lambda x: not x.name.endswith("interface") and not x.ispkg, pkgutil.iter_modules(
-                    [os.path.dirname(image_uploaders.__file__)]))))
+                    [os.path.dirname(uploaders.__file__)]))))
 
 
 def upload_collection(collection_id: str = get_default_collection_name(),

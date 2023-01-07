@@ -1,8 +1,85 @@
-# Blog Tool
+<div id="header" align="center">
+    <h1 align="center">Blog Tool</h1>
+    <img src="https://img.shields.io/github/actions/workflow/status/loveduckie/blog-tool/tests.yml?label=tests">
+</div>
 
-A command-line Python tool that is responsible for exporting and publishing articles that are authored in Markdown format.
+---
 
-## Platforms
+A command-line Python application for managing, processing, exporting, and publishing your blogs from Markdown format. :sparkles:
+
+## FAQ
+
+- What is Markdown? :memo:
+- What is Python? :snake:
+
+## Features
+
+- Manage, export, and publishing your blog posts as Markdown files, along with associated image and video assets.
+- Automatically generate impression images for your blogs.
+- Automatically optimise image assets before publishing.
+- Upload image assets to remote sources before publishing blogs.
+- Export blogs as standalone static pages.
+- Publish your blogs to multiple platforms simultaneously, including self-hosted WordPress, Hashnode, and Dev.to.
+
+## Repository
+
+```bash
+.
+├── _build
+│   ├── doctrees
+│   └── html
+│       ├── _sources
+│       └── _static
+├── _static
+├── _templates
+├── blog_tool
+│   ├── cli
+│   ├── data
+│   │   ├── assets
+│   │   ├── config
+│   │   ├── headers
+│   │   └── templates
+│   ├── errors
+│   ├── exporters
+│   │   ├── decorators
+│   │   └── markdown
+│   ├── git
+│   ├── images
+│   │   ├── processors
+│   │   └── uploaders
+│   ├── logging
+│   │   └── formatters
+│   ├── markdown
+│   ├── models
+│   │   ├── configuration
+│   │   ├── images
+│   │   └── metadata
+│   ├── publishers
+│   └── utility
+│       ├── blogs
+│       ├── click
+│       ├── config
+│       ├── exporters
+│       ├── images
+│       ├── paths
+│       ├── rich
+│       ├── types
+│       └── uploaders
+├── docker
+│   └── wordpress
+│       └── containers
+├── logs
+├── scripts
+└── tests
+    ├── cli
+    └── click
+```
+
+## Support
+
+This sections outlines the support for third-party tooling and services.
+
+### Platforms
 
 Find below the number of platforms that are currently supported.
 
@@ -25,7 +102,7 @@ An "Uploader" is a Python type responsible for uploading a blog to a target plat
 
 ## Exporters
 
-An "Exporter" is a Python type responsible for "rendering" or "producing" file in another format from Markdown source, such as HTML or PDF.
+An "Exporter" is a Python type responsible for "rendering" a blog written in Markdown as another output, such as HTML or PDF.
 
 - **PDF**
   - Render a PDF document form a Markdown source file. The rendered output is customizable with various parameters.
