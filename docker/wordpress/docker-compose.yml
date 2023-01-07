@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  wordpress:
+    container_name: "${SERVICE_NAME}-wordpress"
+    build:
+      dockerfile: "${BUILD_DIR}/Dockerfile"
+    environment:
+      TEST: "TEST"
+  mysql:
+    image: "mysql"
+    container_name: "${SERVICE_NAME}-wordpress"

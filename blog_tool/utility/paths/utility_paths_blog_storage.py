@@ -2,15 +2,6 @@ from blog_tool.utility.paths.utility_paths import get_repo_root_path
 import os
 
 
-def get_default_metadata_path_name() -> str:
-    """Get the default name to use for storing metadata about the the blog or collection
-
-    Returns:
-        str: The metadata path name.
-    """
-    return ".metadata"
-
-
 def get_default_storage_path() -> str:
     """Get the absolute path to the root of the repository
 
@@ -20,7 +11,7 @@ def get_default_storage_path() -> str:
     return get_repo_root_path()
 
 
-def get_default_collections_path(storage_path: str = get_default_storage_path()) -> str:
+def get_collections_path(storage_path: str = get_default_storage_path()) -> str:
     """Get the default collections path
 
     Returns:
@@ -37,3 +28,12 @@ def get_default_export_path(*paths) -> str:
     """
     path_combined = os.sep.join(paths)
     return os.path.abspath(os.path.join(get_default_storage_path(), "exported", path_combined))
+
+
+def get_default_collections_path() -> str:
+    """Get the default collections path
+
+    Returns:
+        str: Returns the absolute path to the blog collections.
+    """
+    return get_collections_path(get_default_storage_path())

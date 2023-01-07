@@ -10,5 +10,13 @@ class PublisherInterface(ABC):
 
     @abstractmethod
     async def publish(self, blog: Blog, **kwargs):
+        """Publish the blog
+
+        Args:
+            blog (Blog): The blog instance
+
+        Raises:
+            ValueError: If the blog value is considered valid or not.
+        """
         if blog is None:
             raise ValueError("The blog is invalid or null")

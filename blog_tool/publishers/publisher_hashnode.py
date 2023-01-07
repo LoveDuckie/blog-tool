@@ -1,3 +1,4 @@
+from blog_tool.models.blog import Blog
 from blog_tool.publishers.publisher_interface import PublisherInterface
 from gql import Client
 from gql.transport.aiohttp import AIOHTTPTransport
@@ -21,7 +22,7 @@ class HashNodePublisher(PublisherInterface):
 
         super().__init__(*args, **kwargs)
 
-    async def publish(self, content: str, **kwargs):
-        if not content:
+    async def publish(self, blog: Blog, **kwargs):
+        if not blog:
             raise ValueError("The content is invalid or null")
-        return super().publish(content, **kwargs)
+        return super().publish(blog, **kwargs)

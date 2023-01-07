@@ -1,7 +1,7 @@
 import os
-from blog_tool.utility.paths.utility_paths_blog_collection import get_collection_path, get_default_collection_id
-from blog_tool.utility.paths.utility_paths_blog_storage import get_default_metadata_path_name, get_default_storage_path, get_default_export_path
-from blog_tool.utility.utility_names import create_id_from_name
+from blog_tool.utility.paths.utility_paths_blog_collection import get_default_collection_id
+from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path, get_default_export_path, get_blog_path
+from blog_tool.utility.paths.utility_paths import get_default_metadata_path_name
 
 
 def get_default_blog_metadata_filename() -> str:
@@ -11,23 +11,6 @@ def get_default_blog_metadata_filename() -> str:
         str: The default metadata file name
     """
     return "metadata-blog.json"
-
-
-def get_blog_path(blog_id: str, collection_id: str = get_default_collection_id(),
-                  storage_path: str = get_default_storage_path()) -> str:
-    """Get the absolute path to where the blog and its associated data is stored
-
-    Args:
-        blog_id (str): The ID for the blog
-        collection_id (str, optional): The ID for the collection. Defaults to get_default_collection_id().
-        collections_path (str, optional): The absolute path to where the collections are sdtored. Defaults to get_default_collections_path().
-
-    Returns:
-        str: _description_
-    """
-    blog_id = create_id_from_name(blog_id)
-    collection_id = create_id_from_name(collection_id)
-    return os.path.abspath(os.path.join(get_collection_path(storage_path, collection_id), blog_id))
 
 
 def get_blog_metadata_path(blog_id: str, collection_id: str = get_default_collection_id(),

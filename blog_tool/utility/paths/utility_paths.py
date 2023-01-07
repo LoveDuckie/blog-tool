@@ -85,3 +85,12 @@ def get_repo_root_path(*paths) -> str:
         str: Returns the absolute path.
     """
     return os.path.join(get_repo_root(), *paths)
+
+
+def get_default_metadata_path_name() -> str:
+    """Get the default name to use for storing metadata about the the blog or collection
+
+    Returns:
+        str: The metadata path name.
+    """
+    return ".metadata"
