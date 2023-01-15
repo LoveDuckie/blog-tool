@@ -5,16 +5,20 @@
 
 ---
 
-A command-line Python application for managing, processing, exporting, and publishing your blogs from Markdown format. :sparkles:
+A command-line Python application for managing, exporting, and publishing your blogs to multiple platforms from Markdown format. :sparkles:
+
+Intended to be ued by developers looking to centralise and publish their blogging content from a "single source of truth".
 
 ## FAQ
 
 - What is Markdown? :memo:
+  - > Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents. Created by John Gruber in 2004, Markdown is now one of the world’s most popular markup languages.
 - What is Python? :snake:
+  - > Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
 
 ## Features
 
-- Manage, export, and publishing your blog posts as Markdown files, along with associated image and video assets.
+- Manage, export, and publish your blog posts as Markdown files, along with associated image and video assets.
 - Automatically generate impression images for your blogs.
 - Automatically optimise image assets before publishing.
 - Upload image assets to remote sources before publishing blogs.
