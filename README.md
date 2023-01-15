@@ -1,5 +1,6 @@
 <div id="header" align="center">
     <h1 align="center">Blog Tool</h1>
+    <p align="center"><i>(for lack of imagination)</i></p>
     <img src="https://img.shields.io/github/actions/workflow/status/loveduckie/blog-tool/tests.yml?label=tests">
 </div>
 
