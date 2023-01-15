@@ -7,7 +7,7 @@
 
 A command-line Python application for managing, exporting, and publishing your blogs to multiple platforms from Markdown format. :sparkles:
 
-Intended to be ued by developers looking to centralise and publish their blogging content from a "single source of truth".
+Intended to be used by developers looking to centralise and publish their blog content from a "single source of truth".
 
 ## FAQ
 
@@ -85,7 +85,7 @@ This sections outlines the support for third-party tooling and services.
 
 ### Platforms
 
-Find below the number of platforms that are currently supported.
+Find below the number of platforms that are (currently) supported.
 
 - **Hashnode**
   - A blogging platform for developers.
@@ -98,6 +98,7 @@ Find below the number of platforms that are currently supported.
   - [https://silverstripe.org](https://www.silverstripe.org/)
 - **WordPress**
   - A blogging and content management system.
+  - **Note:** Support available for self-hosted installations.
   - [https://wordpress.org](https://www.wordpress.org/)
 
 ## Publishers
