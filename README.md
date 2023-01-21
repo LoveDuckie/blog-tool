@@ -1,20 +1,25 @@
 <div id="header" align="center">
     <h1 align="center">Blog Tool</h1>
+    <p align="center"><i>(for lack of imagination)</i></p>
     <img src="https://img.shields.io/github/actions/workflow/status/loveduckie/blog-tool/tests.yml?label=tests">
 </div>
 
 ---
 
-A command-line Python application for managing, processing, exporting, and publishing your blogs from Markdown format. :sparkles:
+A command-line Python application for managing, exporting, and publishing your blogs to multiple platforms from Markdown format. :sparkles:
+
+Intended to be used by developers looking to centralise and publish their blog content from a "single source of truth".
 
 ## FAQ
 
 - What is Markdown? :memo:
+  - > Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents. Created by John Gruber in 2004, Markdown is now one of the world’s most popular markup languages.
 - What is Python? :snake:
+  - > Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.
 
 ## Features
 
-- Manage, export, and publishing your blog posts as Markdown files, along with associated image and video assets.
+- Manage, export, and publish your blog posts as Markdown files, along with associated image and video assets.
 - Automatically generate impression images for your blogs.
 - Automatically optimise image assets before publishing.
 - Upload image assets to remote sources before publishing blogs.
@@ -81,7 +86,7 @@ This sections outlines the support for third-party tooling and services.
 
 ### Platforms
 
-Find below the number of platforms that are currently supported.
+Find below the number of platforms that are (currently) supported.
 
 - **Hashnode**
   - A blogging platform for developers.
@@ -94,6 +99,7 @@ Find below the number of platforms that are currently supported.
   - [https://silverstripe.org](https://www.silverstripe.org/)
 - **WordPress**
   - A blogging and content management system.
+  - **Note:** Support available for self-hosted installations.
   - [https://wordpress.org](https://www.wordpress.org/)
 
 ## Publishers
