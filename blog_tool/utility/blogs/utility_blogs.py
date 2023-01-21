@@ -1,11 +1,8 @@
 import os
-from blog_tool.models.blog import Blog, BlogMetadata
-from blog_tool.models.blog_collection import BlogCollection, BlogCollectionMetadata
-from blog_tool.utility.blogs.utility_blogs_validation import is_valid_collection
-from blog_tool.utility.paths.utility_paths_blog_storage import get_default_collections_path, get_default_storage_path
-from blog_tool.utility.utility_names import create_id_from_name
 
-from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path, get_collection_metadata_filepath, get_collection_path, get_default_collection_id, get_repo_root, get_repo_root
+from blog_tool.models.blog import Blog, BlogMetadata
+from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path
+from blog_tool.utility.utility_names import create_id_from_name
 
 _collection_dirs = ['.metadata', 'assets', 'blogs']
 _blog_dirs = ['.metadata', 'assets']
@@ -18,7 +15,7 @@ def create_blog_paths(target_path: str) -> None:
         target_path (str): The absolute path to the directory to create the paths in
 
     Raises:
-        ValueError: The absolue target path is invalid or null
+        ValueError: The absolute target path is invalid or null
         IOError: The absolute target path does not exist
     """
     global _blog_dirs

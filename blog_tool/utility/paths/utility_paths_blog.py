@@ -1,6 +1,6 @@
 import os
 from blog_tool.utility.paths.utility_paths_blog_collection import get_default_collection_id
-from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path, get_default_exported_path, get_blog_path
+from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path, get_default_exported_path
 from blog_tool.utility.paths.utility_paths_storage import get_blog_path
 from blog_tool.utility.paths.utility_paths import get_default_metadata_path_name
 
@@ -19,6 +19,7 @@ def get_blog_metadata_path(blog_id: str, collection_id: str = get_default_collec
     """Get the absolute path to where the metadata is stored for the blog
 
     Args:
+        storage_path: The absolute path to where the content is being stored
         blog_id (str): The blog ID
         collection_id (str, optional): The collection ID for the blog. Defaults to get_default_collection_id().
         collections_path (str, optional): The absolute path to where the collections are stored. Defaults to get_default_collections_path().
@@ -46,9 +47,9 @@ def get_blog_metadata_filepath(
     """Get the absolute file path to where the metadata file is for a blog
 
     Args:
+        storage_path: The absolute path to where content is being stored.
         blog_id (str): The ID for a blog
         collection_id (str, optional): The ID for a collection. Defaults to get_default_collection_name().
-        collections_path (str, optional): The absolute path to where the collections are stored. Defaults to get_default_collections_path().
 
     Raises:
         ValueError: If the blog ID was not defined

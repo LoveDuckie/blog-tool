@@ -8,14 +8,16 @@ from blog_tool.utility.paths.utility_paths_blog import get_default_blog_metadata
 
 class Blog:
     def __init__(self, metadata: BlogMetadata) -> None:
+        self._collection = None
+        self._content = None
+        self._description = None
+        self._id = None
+        self._name = None
         if metadata is None:
             raise ValueError("The metadata for this blog is invalid or null")
         self._metadata = metadata
         self._loaded = False
         super().__init__()
-
-    def blog_path(self) -> str:
-        return
 
     @property
     def metadata(self):
@@ -38,7 +40,6 @@ class Blog:
         if self._loaded and hasattr(self, "_content"):
             return self._content
 
-        self._content
         return self._content
 
     @property
