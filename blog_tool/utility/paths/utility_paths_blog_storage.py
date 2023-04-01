@@ -24,7 +24,7 @@ def get_default_exported_path(*paths) -> str:
     """Get the default export path for exporting or rendering blogs out to.
 
     Returns:
-        str: Returns the newly generaed path.
+        str: Returns the newly generated path.
     """
     path_combined = os.sep.join(paths)
     return os.path.abspath(os.path.join(get_default_storage_path(), "exported", path_combined))

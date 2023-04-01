@@ -17,6 +17,14 @@ def get_requirements() -> List:
 requirements_found = get_requirements()
 
 def get_project_url(*args) -> str:
+    """
+    Retrieve the URL for the project
+    Args:
+        *args:
+
+    Returns:
+
+    """
     parts = os.sep.join(args)
     return f'https://github.com/LoveDuckie/portfolio-blog/{parts}'
 

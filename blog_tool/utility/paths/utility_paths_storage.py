@@ -44,6 +44,7 @@ def get_blog_path(blog_id: str, collection_id: str = get_default_collection_id()
     """Get the absolute path to where the blog and its associated data is stored
 
     Args:
+        storage_path:
         blog_id (str): The ID for the blog
         collection_id (str, optional): The ID for the collection. Defaults to get_default_collection_id().
         collections_path (str, optional): The absolute path to where the collections are sdtored. Defaults to get_default_collections_path().
@@ -51,9 +52,9 @@ def get_blog_path(blog_id: str, collection_id: str = get_default_collection_id()
     Returns:
         str: _description_
     """
-    blog_id = create_id_from_name(blog_id)
     if not blog_id:
         raise ValueError("The blog ID is invalid or null")
+    blog_id = create_id_from_name(blog_id)
     if collection_id := create_id_from_name(collection_id):
         return os.path.abspath(os.path.join(get_collection_path(collection_id, storage_path), blog_id))
     else:

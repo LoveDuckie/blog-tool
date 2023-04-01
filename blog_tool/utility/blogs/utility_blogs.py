@@ -1,7 +1,11 @@
 import os
 
 from blog_tool.models.blog import Blog, BlogMetadata
+from blog_tool.utility.paths.utility_paths import get_repo_root
 from blog_tool.utility.paths.utility_paths_blog import get_blog_metadata_filepath, get_blog_path
+from blog_tool.utility.paths.utility_paths_blog_collection import get_collection_metadata_filepath
+from blog_tool.utility.paths.utility_paths_blog_storage import get_default_storage_path
+from blog_tool.utility.paths.utility_paths_storage import get_default_collection_id, get_collection_path
 from blog_tool.utility.utility_names import create_id_from_name
 
 _collection_dirs = ['.metadata', 'assets', 'blogs']
@@ -84,7 +88,7 @@ def create_blog_metadata_file(
         raise IOError(f"The path \"{collections_path}\" does not exist.")
 
     blog_path = get_blog_path(blog_id, collection_id, collections_path)
-    if not os.path.exist(blog_path):
+    if not os.path.exists(blog_path):
         os.makedirs(blog_path)
 
     blog = BlogMetadata.create(os.path.dirname(get_blog_metadata_filepath(
@@ -97,12 +101,12 @@ def create_blog_metadata_file(
 
 def create_blog(
         blog_id: str, collection_id: str = get_default_collection_id(),
-        collections_path: str = get_repo_root(),
+        storage_path: str = get_default_storage_path(),
         **kwargs):
     global _blog_dirs
     if not blog_id:
         raise ValueError("The blog ID is invalid or null")
-    blog_path = get_blog_path(blog_id, collection_id, collections_path)
+    blog_path = get_blog_path(blog_id, collection_id, storage_path)
 
     if not os.path.exists(blog_path):
         os.makedirs(blog_path)
@@ -112,7 +116,6 @@ def create_blog(
         raise ValueError("The blog slug name is invalid or null")
 
     create_blog_paths(get_blog_path(blog_id, collection_id))
-    create_blog_metadata_file()
 
 
 def get_blogs(collection_id: str = get_default_collection_id(),

@@ -1,5 +1,6 @@
 import os
-from blog_tool.utility.paths.utility_paths_blog_collection import get_collection_metadata_filepath, get_collection_path, get_default_collection_id, get_repo_root
+from blog_tool.utility.paths.utility_paths_blog_collection import get_collection_metadata_filepath, get_collection_path, \
+    get_default_collection_id
 from blog_tool.utility.paths.utility_paths_storage import get_default_storage_path
 
 

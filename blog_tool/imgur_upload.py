@@ -7,6 +7,14 @@ from blog_tool.utility.config.utility_config import get_config_property
 
 
 def get_imgur_api_endpoint(*urls) -> str:
+    """
+    Instantiate the Imgur API endpoint
+    Args:
+        *urls: The relative path to combine with the base URL
+
+    Returns:
+
+    """
     url_combined = '/'.join(urls)
     return f"https://api.imgur.com/{url_combined}"
 
@@ -77,6 +85,7 @@ def cli_authenticate(ctx):
 @click.pass_context
 def cli_upload(ctx):
     return
+
 
 # @cli.result_callback()
 # def process_pipeline(processors, input):

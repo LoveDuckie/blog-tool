@@ -1,12 +1,18 @@
-from typing import List
 import os
 import traceback
+from typing import List
+
 import rich_click as click
-from blog_tool.utility.blogs.utility_blogs import create_blog, get_blogs, is_valid_blog
+
+from blog_tool.utility.blogs.utility_blogs import create_blog, get_blogs
+from blog_tool.utility.blogs.utility_blogs_validation import is_valid_blog
 from blog_tool.utility.click.utility_click import click_write_debug, click_write_error, click_write_info
-from blog_tool.utility.utility_exporters import get_exporter_modules_names
+from blog_tool.utility.exporters.utility_exporters import get_exporter_modules_names
+from blog_tool.utility.paths.utility_paths import get_repo_root
+from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id
+from blog_tool.utility.paths.utility_paths_blog_storage import get_collections_path
+from blog_tool.utility.paths.utility_paths_storage import get_collection_path
 from blog_tool.utility.utility_names import create_id_from_name
-from blog_tool.utility.paths.utility_paths_blog import get_default_collection_id, get_default_collection_path, get_repo_root
 
 
 @click.group("blogs", help="Manage blogs.")
@@ -59,7 +65,11 @@ def cli_blogs_delete(ctx, blog_id: str):
     collection_id = ctx.obj['collection_id']
     path = ctx.obj['path']
 
-    if not is_valid_blog(blog_id, collection_id, collections_path):
+    storage_path: str = ctx.obj['storage_path']
+    if not storage_path:
+        raise ValueError("The storage path is invalid or null")
+
+    if not is_valid_blog(blog_id, collection_id, storage_path):
         click_write_error(f"The blog \"{blog_id}\" is not valid.")
 
 
@@ -71,8 +81,12 @@ def cli_blogs_validate(ctx, blog_id: str):
     if blog_id is None:
         raise ValueError("The blog ID is invalid or null")
     collection_id = ctx.obj['collection_id']
+    storage_path: str = ctx.obj['storage_path']
 
-    if not is_valid_blog(blog_id, collection_id, collections_path):
+    if not storage_path:
+        raise ValueError("The storage path is invalid or null")
+
+    if not is_valid_blog(blog_id, collection_id, storage_path):
         click_write_error(f"The blog \"{blog_id}\" is not valid.")
 
 
@@ -81,6 +95,11 @@ def cli_blogs_validate(ctx, blog_id: str):
 @click.pass_context
 def cli_blogs_create(ctx, blog_id: str):
     ctx.ensure_object(dict)
+
+    storage_path: str = ctx.obj['storage_path']
+    if not storage_path:
+        raise ValueError("The storage path is invalid or null")
+
     if blog_id is None:
         raise ValueError("The blog ID specified is invalid or null")
 
@@ -90,11 +109,17 @@ def cli_blogs_create(ctx, blog_id: str):
 def cli_blogs_list(ctx):
     ctx.ensure_object(dict)
     collection_id = ctx.obj['collection_id']
-    path = ctx.obj['path']
+    storage_path: str = ctx.obj['storage_path']
+    if not storage_path:
+        raise ValueError("The storage path is invalid or null")
+
     if not collection_id:
         raise ValueError("The collection ID is invalid or null")
-    collections_path = get_repo_root(path)
-    collection_path = get_default_collection_path()
+
+    collections_path = get_collections_path(storage_path)
+    collection_path = get_collection_path(collection_id, collections_path)
+    if not collection_path:
+        raise ValueError("The collection path specified is invalid or null")
 
     click_write_info(f"Listing Blogs: \"{collection_id}\"")
     click_write_debug(f"Collection Path: \"{collections_path}\"")
@@ -114,6 +139,7 @@ def cli_blogs_list(ctx):
 @click.pass_context
 def cli_blogs_list(ctx):
     collection_id = ctx.obj['collection_id']
+    collections_path = ctx.obj['collections_path']
 
     click_write_info(f"Listing Blogs: \"{collection_id}\"")
     click_write_debug(f"Collections Path: \"{collections_path}\"")

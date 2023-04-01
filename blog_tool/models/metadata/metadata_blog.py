@@ -7,10 +7,14 @@ from blog_tool.models.images.blog_image import BlogImage
 
 
 class BlogMetadata(BaseModel):
+    """
+    Represents a type for containing information about the blog
+    """
     id: str  # The ID or identifier
     name: str
-    checksum: str
-    summary: str
+    summary: Optional[str]
+    description: Optional[str]
+    checksum: Optional[str]
     programming_languages: Optional[list[str]]
     technologies: Optional[list[str]]
     platforms: Optional[list[str]]
@@ -19,7 +23,9 @@ class BlogMetadata(BaseModel):
     filepath: Optional[str]
     images: list[BlogImage]
 
-    def __init__(__pydantic_self__, **data: Any) -> None:
+    properties: Optional[dict]
+
+    def __init__(self, **data: Any) -> None:
         super().__init__(**data)
 
     @classmethod
@@ -54,7 +60,7 @@ class BlogMetadata(BaseModel):
             IOError: If the metadata file does not exist
 
         Returns:
-            BlogMetadata: The newly deserialized meta data
+            BlogMetadata: The newly deserialized metadata
         """
         if metadata_filepath is None:
             raise ValueError("The metadata is invalid or null")
@@ -74,3 +80,4 @@ class BlogMetadata(BaseModel):
         if metadata is None:
             raise ValueError(
                 "The loaded metadata is invalid or null. Unable to continue.")
+        return metadata

@@ -39,7 +39,7 @@ echo_header(get_default_header_name())
               default=get_default_user_config_filepath(),
               show_default=True)
 @click.pass_context
-def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_storage_path: True):
+def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_storage_path: bool):
     ctx.ensure_object(dict)
 
     if not storage_path:
@@ -53,7 +53,7 @@ def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_
         echo_panel_warning("Invalid Storage Path", f"Creating storage path as it does not exist (\"{storage_path}\")")
         try:
             os.makedirs(storage_path)
-        except IOError as exc:
+        except IOError:
             return
     ctx.obj['storage_path'] = storage_path
 

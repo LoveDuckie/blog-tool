@@ -5,6 +5,14 @@ from gql.transport.aiohttp import AIOHTTPTransport
 
 
 def get_hashnode_api_url(*paths) -> str:
+    """
+    Get the API URL
+    Args:
+        *paths:
+
+    Returns:
+
+    """
     return f"https://api.hashnode.com/{'/'.join(paths)}"
 
 
@@ -13,11 +21,11 @@ class HashNodePublisher(PublisherInterface):
         if 'hashnode_api_token' not in kwargs:
             raise KeyError("The Hashnode API token was not defined")
         self._api_token = kwargs['hashnode_api_token']
-        TRANSPORT = AIOHTTPTransport(
+        transport_instance = AIOHTTPTransport(
             url=get_hashnode_api_url(), headers={"Authorization": self._api_token})
 
         client = Client(
-            transport=TRANSPORT, fetch_schema_from_transport=True)
+            transport=transport_instance, fetch_schema_from_transport=True)
         self._client = client
 
         super().__init__(*args, **kwargs)

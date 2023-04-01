@@ -11,4 +11,6 @@ class DevToPublisher(PublisherInterface):
     async def publish(self, blog: Blog, **kwargs):
         if not blog:
             raise ValueError("The content is invalid or null")
+        if not isinstance(blog,Blog):
+            raise TypeError("")
         return super().publish(blog)
