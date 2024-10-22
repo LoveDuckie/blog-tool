@@ -17,6 +17,9 @@ def get_hashnode_api_url(*paths) -> str:
 
 
 class HashNodePublisher(PublisherInterface):
+    """
+    The publisher implemetnation
+    """
     def __init__(self, *args, **kwargs) -> None:
         if 'hashnode_api_token' not in kwargs:
             raise KeyError("The Hashnode API token was not defined")
