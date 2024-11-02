@@ -1,5 +1,3 @@
-
-
 from blog_tool.image_uploaders.image_uploader_interface import ImageUploaderInterface
 
 

@@ -4,7 +4,7 @@
     "scope": "shellscript",
     "description": "The default declarations for all scripts that use shared functions.",
     "body": [
-      "#!/bin/bash",
+      "#!/usr/bin/env bash",
       "<<EOF",
       "",
       "    Blog Tool \\ Shared \\ $1",
@@ -20,7 +20,7 @@
     "scope": "shellscript",
     "description": "The default declarations for all scripts that use shared functions.",
     "body": [
-      "#!/bin/bash",
+      "#!/usr/bin/env bash",
       "<<EOF",
       "",
       "   Blog Tool \\ $1 \\ $2",
@@ -32,7 +32,7 @@
       "export SHARED_SCRIPTS_PATH_ENV=\\${SHARED_SCRIPTS_PATH_ENV:-\\$(realpath \\$CURRENT_SCRIPT_DIRECTORY_ENV)}",
       "export CURRENT_SCRIPT_FILENAME=\\$(basename \\${BASH_SOURCE[0]:-${(%):-%x}})",
       "export CURRENT_SCRIPT_FILENAME_BASE=\\${CURRENT_SCRIPT_FILENAME%.*}",
-      ". \"\\$SHARED_SCRIPTS_PATH_ENV/shared-functions.sh\"",
+      ". \"\\$SHARED_SCRIPTS_PATH_ENV/shared_functions.sh\"",
       "write_header"
     ]
   },

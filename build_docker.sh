@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 <<EOF
 
    Blog Tool \ Build \ Docker
@@ -21,22 +21,22 @@ usage() {
 }
 
 while getopts ':c:h?' opt; do
-   case $opt in
+    case $opt in
         c)
             TARGET_CONFIGURATION=${OPTARG}
-            ;;
+        ;;
         h|?)
             usage
-            ;;
+        ;;
         :)
             write_error "build-docker" "\"-${OPTARG}\" requires an argument"
             usage
-            ;;
+        ;;
         *)
             write_error "build-docker" "\"-${OPTARG}\"was not recognised as an option"
             usage
-            ;;
-   esac
+        ;;
+    esac
 done
 
 write_success "build-docker" "done"

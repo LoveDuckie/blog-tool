@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 <<EOF
 
    Blog Tool \ Generate \ Documentation
@@ -6,12 +6,46 @@
    Generate documentation for the project
 
 EOF
+
 CURRENT_SCRIPT_DIRECTORY_ENV=$(dirname $(realpath ${BASH_SOURCE[0]:-${(%):-%x}}))
 export SHARED_SCRIPTS_PATH_ENV=${SHARED_SCRIPTS_PATH_ENV:-$(realpath $CURRENT_SCRIPT_DIRECTORY_ENV/scripts)}
 export CURRENT_SCRIPT_FILENAME=$(basename ${BASH_SOURCE[0]:-${(%):-%x}})
 export CURRENT_SCRIPT_FILENAME_BASE=${CURRENT_SCRIPT_FILENAME%.*}
 . "$SHARED_SCRIPTS_PATH_ENV/shared_functions.sh"
 write_header
+
+write_info "run_generate_docs" "Install: Python Version \"$(<$CURRENT_SCRIPT_DIRECTORY_ENV/.python-version)\""
+pyenv install --skip-existing
+if ! write_response "run_generate_docs" "Install: Python Version"; then
+    write_error "run_generate_docs" "Failed: Unable to install target Python version"
+    exit 1
+fi
+
+# Check if virtualenv is installed, install if not
+if ! python -m virtualenv --version &> /dev/null
+then
+    write_error "run_generate_docs" "\"virtualenv\" is not installed. Installing..."
+    python -m pip install virtualenv
+fi
+
+# Create a virtual environment if it doesn't already exist
+VENV_DIR="$CURRENT_SCRIPT_DIRECTORY_ENV/venv"
+if [ ! -d "$VENV_DIR" ]; then
+    write_info "run_generate_docs" "Creating virtual environment..."
+    python -m virtualenv "$VENV_DIR"
+fi
+
+# Activate the virtual environment
+. "$VENV_DIR/bin/activate"
+
+# Ensure the virtual environment is deactivated after the script ends
+function deactivate_virtualenv {
+    if [[ "$VIRTUAL_ENV" != "" ]]; then
+        deactivate
+        write_info "run_generate_docs" "Virtual environment deactivated."
+    fi
+}
+trap deactivate_virtualenv EXIT
 
 # Step 1: Install Sphinx and dependencies
 write_info "run_generate_docs" "Checking and installing Sphinx and dependencies if needed..."

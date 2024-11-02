@@ -2,9 +2,6 @@ import unittest
 
 
 class TestsExporters(unittest.TestCase):
-    def __init__(self, methodName: str = ...) -> None:
-        super().__init__(methodName)
-
     def tests_credentials_add(self):
         pass
 

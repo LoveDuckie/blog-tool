@@ -130,7 +130,7 @@ Insert example here.
 This tool is installable from PyPi by running the following command.
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 pip install blog-tool
 ```
@@ -140,7 +140,7 @@ The tool should then be usable from the command-line by running the following.
 ### Creating a Blog Collection
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 python -m blog-tool collections create <collection name>
 ```
@@ -148,13 +148,13 @@ python -m blog-tool collections create <collection name>
 Alternatively, the same command can be expressed as the following.
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 blog-tool collections create <collection name>
 ```
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 blog-tool collections list
 ```

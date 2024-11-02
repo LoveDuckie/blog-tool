@@ -1,9 +1,6 @@
-import os
-from blog_tool.image_uploaders.image_uploader_interface import ImageUploaderInterface
-from blog_tool.utility.config.utility_config import get_config_property
 from blog_tool import __title__
-
-import rich_click as click
+from blog_tool.images.uploaders.image_uploader_interface import ImageUploaderInterface
+from blog_tool.utility.config.utility_config import get_config_property
 
 
 class MediumImageUploader(ImageUploaderInterface):

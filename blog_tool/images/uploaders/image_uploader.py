@@ -17,3 +17,4 @@ class ImageUploader:
         except Exception as exc:
             return
         return
+

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 <<EOF
 
    Blog Tool \ Setup \ Python Environment Manager
@@ -16,14 +16,14 @@ write_header
 export DEFAULT_PYTHON_VERSION=3.10.0
 export DEBIAN_FRONTEND=noninteractive
 apt -yqq install make build-essential libssl-dev zlib1g-dev \
-   libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-   libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 write_info "setup-tooling-pyenv" "installing python environment manager"
 curl https://pyenv.run | bash
 if ! write_response "setup-tooling-pyenv" "install python environment manager"; then
-   write_error "setup-tooling-pyenv" "failed to install python environment manager"
-   exit 1
+    write_error "setup-tooling-pyenv" "failed to install python environment manager"
+    exit 1
 fi
 
 cat <<EOF >>~/.profile

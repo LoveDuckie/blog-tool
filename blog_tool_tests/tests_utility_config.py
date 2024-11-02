@@ -3,5 +3,4 @@ import unittest
 
 
 class TestsUtilityConfig(unittest.TestCase):
-    def __init__(self) -> None:
-        super().__init__()
+    pass

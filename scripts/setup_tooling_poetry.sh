@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 <<EOF
 
    Blog Tool \ Setup \ Tooling \ Poetry
@@ -22,6 +22,20 @@ write_info "setup-tooling-poetry" "installing poetry"
 curl -sSL https://install.python-poetry.org | python3 -
 if ! write_response "setup-tooling-poetry" "install: poetry"; then
     write_error "setup-tooling-poetry" "failed: installing poetry"
+    exit 2
+fi
+
+echo "export PATH=\"~/.local/bin:\$PATH\"" >>~/.profile
+. ~/.profile
+
+if ! is_command_available poetry; then
+    write_error "setup-tooling-poetry" "poetry was not installed correctly"
+    exit 3
+fi
+
+write_success "setup-tooling-poetry" "done"
+exit 0
+ite_error "setup-tooling-poetry" "failed: installing poetry"
     exit 2
 fi
 
