@@ -24,14 +24,14 @@ fi
 # Check if virtualenv is installed, install if not
 if ! python -m virtualenv --version &> /dev/null
 then
-    write_error "run_generate_docs" "\"virtualenv\" is not installed. Installing..."
+    write_warning "run_generate_docs" "\"virtualenv\" is not installed. Installing..."
     python -m pip install virtualenv
 fi
 
 # Create a virtual environment if it doesn't already exist
 VENV_DIR="$CURRENT_SCRIPT_DIRECTORY_ENV/venv"
 if [ ! -d "$VENV_DIR" ]; then
-    write_info "run_generate_docs" "Creating virtual environment..."
+    write_warning "run_generate_docs" "Creating virtual environment..."
     python -m virtualenv "$VENV_DIR"
 fi
 
@@ -42,7 +42,7 @@ fi
 function deactivate_virtualenv {
     if [[ "$VIRTUAL_ENV" != "" ]]; then
         deactivate
-        write_info "run_generate_docs" "Virtual environment deactivated."
+        write_warning "run_generate_docs" "Virtual environment deactivated."
     fi
 }
 trap deactivate_virtualenv EXIT

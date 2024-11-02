@@ -17,7 +17,7 @@ VENV_DIR="$CURRENT_SCRIPT_DIRECTORY_ENV/venv"
 
 # Create and activate virtual environment if not already present
 if [ ! -d "$VENV_DIR" ]; then
-    echo "Creating virtual environment..."
+    write_warning "run_tests" "Creating virtual environment..."
     python -m venv "$VENV_DIR"
 fi
 
@@ -28,14 +28,14 @@ source "$VENV_DIR/bin/activate"
 function deactivate_virtualenv {
     if [[ "$VIRTUAL_ENV" != "" ]]; then
         deactivate
-        echo "Virtual environment deactivated."
+        write_warning "run_tests" "Virtual environment deactivated."
     fi
 }
 trap deactivate_virtualenv EXIT
 
 # Check if coverage is installed, install if not
 if ! pip show coverage &> /dev/null; then
-    echo "Installing coverage..."
+    write_warning "run_tests" "Installing coverage..."
     pip install coverage
 fi
 
@@ -48,6 +48,7 @@ write_info "run_tests" "Generating coverage report..."
 coverage report -m
 
 # Optional: Generate an HTML coverage report
+write_info "run_tests" "Generating coverage report (HTML)..."
 coverage html
 write_info "run_tests" "Coverage HTML report generated at htmlcov/index.html"
 
