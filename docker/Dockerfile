@@ -3,7 +3,7 @@ FROM python:3.10.8-slim AS blog-tool-base
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /blog-tool
-COPY . /blog-tool
+COPY .. /blog-tool
 RUN chmod -R ug+rwx /blog-tool
 
 FROM blog-tool-base as blog-tool-system

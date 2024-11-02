@@ -14,7 +14,6 @@ from blog_tool.utility.utility_header import echo_header, get_default_header_nam
 from blog_tool.utility.utility_rich_click import click_console_echo_error, click_console_echo_exception
 from blog_tool.utility.utility_variables import get_tool_environment_variable_name
 
-
 click.rich_click.SHOW_ARGUMENTS = True
 click.rich_click.GROUP_ARGUMENTS_OPTIONS = True
 
@@ -40,6 +39,14 @@ echo_header(get_default_header_name())
               show_default=True)
 @click.pass_context
 def cli(ctx, storage_path: str, show_header: bool, config_filepath: str, create_storage_path: bool):
+    """
+    :param ctx: The Click context object, used to pass information between commands.
+    :param storage_path: The path where blogs and collections are stored.
+    :param show_header: Whether to display the ASCII header.
+    :param config_filepath: The absolute file path to the configuration file.
+    :param create_storage_path: Attempt to create the storage path for the blogs automatically if it does not exist.
+    :return: None
+    """
     ctx.ensure_object(dict)
 
     if not storage_path:
@@ -75,7 +82,6 @@ cli.add_command(cli_collections)
 cli.add_command(cli_blogs)
 cli.add_command(cli_version)
 cli.add_command(cli_validate)
-
 
 if __name__ == "__main__":
     try:

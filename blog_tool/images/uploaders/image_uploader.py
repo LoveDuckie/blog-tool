@@ -5,7 +5,7 @@ class ImageUploader:
     def __init__(self) -> None:
         pass
 
-    def upload(self,  uploader_interface: ImageUploaderInterface, **kwargs):
+    def upload(self, uploader_interface: ImageUploaderInterface, **kwargs):
         if not uploader_interface:
             raise ValueError("The image uploader interface specified is invalid or null")
 

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   blog-tool:
-    build:
-      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/blog-tool
     environment:
       BUILD_CONFIGURATION: development

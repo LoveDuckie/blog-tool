@@ -1,6 +1,9 @@
 
 
 class ImageProcessorInterface:
+    """
+
+    """
     def __init__(self) -> None:
         pass
 
